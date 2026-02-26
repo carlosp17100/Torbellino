@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --color-background: hsl(0 0% 100%);
+  --color-foreground: hsl(220 40% 13%);
+  --color-secondary: hsl(43 85% 55%);
+  --color-secondary-foreground: hsl(220 40% 10%);
+  --color-muted: hsl(220 15% 92%);
+  --color-muted-foreground: hsl(220 15% 46%);
+  --color-accent: hsl(0 72% 42%);
+  --color-accent-foreground: hsl(0 0% 100%);
+  --color-border: hsl(220 15% 88%);
+  --color-primary: hsl(220 40% 13%);
+  --color-primary-foreground: hsl(0 0% 100%);
+}
+
+* { border-color: var(--color-border); box-sizing: border-box; }
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden; /* Evita el scroll lateral en móviles */
+}
+
+.font-display { font-family: 'Playfair Display', serif; }
+
+/* CLASE MAGICA PARA LOS NODOS (MAPA MENTAL) */
+.map-responsive-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.map-scaler {
+  transform-origin: center center;
+  transition: transform 0.3s ease;
+}
+
+/* Escalado dinámico según el ancho de pantalla para que los nodos no se muevan */
+@media (max-width: 1200px) { .map-scaler { transform: scale(0.8); } }
+@media (max-width: 992px) { .map-scaler { transform: scale(0.6); } }
+@media (max-width: 768px) { .map-scaler { transform: scale(0.45); } }
+@media (max-width: 480px) { .map-scaler { transform: scale(0.35); } }
