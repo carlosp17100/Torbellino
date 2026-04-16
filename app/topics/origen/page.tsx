@@ -1,176 +1,234 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
+import { motion, Variants, AnimatePresence } from "framer-motion"; // Añadido AnimatePresence
 import { useRouter } from "next/navigation";
-import Image from "next/image";
+import { useState } from "react"; // Añadido useState
 
-// 1. Interfaces para TypeScript
-interface HistoriaHito {
-  id: number;
-  siglo: string;
-  hitos: string[];
-  icon: string;
-}
-
-// 2. Datos de Origen Territorial
-const HISTORIA_TIMELINE: HistoriaHito[] = [
-  { 
-    id: 1, 
-    siglo: "XVIII", 
-    hitos: ["Registros históricos de presencia temprana", "Consolidación en el núcleo andino"], 
-    icon: "📜" 
+// 1. Estructura de Datos (Sin cambios)
+const TERRITORIOS_DATA = [
+  {
+    id: 1,
+    titulo: "Danza de Cintas",
+    ubicacion: "Boyacá / Santander",
+    descripcion: "Representación coreográfica del tejido social a través del baile y la música del requinto.",
+    imagen: "/territorio2.png",
+    tag: "Coreografía"
   },
-  { 
-    id: 2, 
-    siglo: "XIX", 
-    hitos: ["Danza suelta en pareja", "Giros rápidos y zapateo", "Juego de evasión", "Coplas improvisadas"], 
-    icon: "💃" 
+  {
+    id: 2,
+    titulo: "Raíces Campesinas",
+    ubicacion: "Vélez, Santander",
+    descripcion: "El torbellino como eje de la vida agrícola, artesanal y la identidad regional.",
+    imagen: "/territorio4.png",
+    tag: "Cultura"
   },
-  { 
-    id: 3, 
-    siglo: "Actualidad", 
-    hitos: ["Cohesión en festividades religiosas", "Saberes intergeneracionales", "Revitalización Universitaria"], 
-    icon: "🎓" 
+  {
+    id: 3,
+    titulo: "Festivales Nacionales",
+    ubicacion: "Ibagué, Tolima",
+    descripcion: "El brillo de la danza en las grandes plataformas del folclor andino colombiano.",
+    imagen: "/territorio3.png",
+    tag: "Espectáculo"
   },
+  {
+    id: 4,
+    titulo: "Semilleros de Tradición",
+    ubicacion: "Tabio, Cundinamarca",
+    descripcion: "El legado del torbellino en manos de las nuevas generaciones.",
+    imagen: "/territorio5.png",
+    tag: "Relevo"
+  }
 ];
 
-// 3. Variantes de Animación
-const revealVariants: Variants = {
-  hidden: { y: 50, opacity: 0 },
+// 2. Variantes de Animación
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.2 }
+  }
+};
+
+const cardVariants = {
+  hidden: { y: 20, opacity: 0 },
   visible: { 
     y: 0, 
     opacity: 1, 
-    transition: { type: "spring", stiffness: 70, damping: 15, duration: 0.8 } 
+    transition: { type: "spring", stiffness: 100, damping: 12 } 
   },
-};
-
-const floatingVariants: Variants = {
-  animate: {
-    y: [0, -10, 0],
-    transition: { duration: 4, repeat: Infinity, ease: "easeInOut" },
-  },
-};
+  hover: { 
+    y: -10, 
+    transition: { duration: 0.3 } 
+  }
+} as const;
 
 export default function TerritorioPage() {
   const router = useRouter();
+  // Estado para manejar qué card está expandida
+  const [selectedId, setSelectedId] = useState<number | null>(null);
+
+  // Encontrar la data del elemento seleccionado
+  const selectedItem = TERRITORIOS_DATA.find(item => item.id === selectedId);
 
   return (
-    <main className="min-h-screen bg-[#F3F4F6] flex flex-col font-sans overflow-x-hidden relative">
+    <main className="min-h-screen bg-[#F8F9FA] flex flex-col font-sans overflow-x-hidden">
       
-      {/* NAVEGACIÓN INSTITUCIONAL */}
-      <nav className="w-full p-4 md:p-6 flex justify-between items-center z-50 bg-white shadow-sm border-b sticky top-0 shrink-0">
-        <div className="flex items-center gap-2 md:gap-4 cursor-pointer shrink-0" onClick={() => router.push("/")}>
-          <div className="relative w-8 h-8 md:w-12 md:h-12">
-            <Image src="/umng-logo.png" alt="UMNG" fill className="object-contain" priority />
+      {/* NAVEGACIÓN */}
+      <nav className="w-full p-4 md:p-6 flex justify-between items-center z-50 bg-white shadow-sm sticky top-0">
+        <div className="flex items-center gap-4 cursor-pointer" onClick={() => router.push("/")}>
+          <div className="relative w-10 h-10">
+            <img src="/umng-logo.png" alt="UMNG" className="object-contain w-full h-full" />
           </div>
-          <span className="text-[#1D2757] font-bold text-[9px] md:text-xs tracking-tighter uppercase leading-tight border-l pl-2 md:pl-4 border-gray-200">
+          <span className="text-[#1D2757] font-bold text-[10px] md:text-xs uppercase leading-tight border-l pl-4 border-gray-200">
             Universidad Militar <br /> Nueva Granada
           </span>
         </div>
-
-        <h2 className="text-[#1D2757] font-black text-[10px] md:text-xl tracking-[0.1em] md:tracking-[0.2em] uppercase text-center px-2">
-          Origen <span className="hidden sm:inline">Territorial</span>
+        <h2 className="text-[#1D2757] font-black text-sm md:text-xl tracking-widest uppercase">
+          Territorios <span className="text-[#C5A059]">del Torbellino</span>
         </h2>
-
         <button 
-          onClick={() => router.push("/topics")}
-          className="bg-[#1D2757] text-white px-3 py-1.5 md:px-6 md:py-2 rounded-md font-bold text-[9px] md:text-xs hover:bg-[#C5A059] transition-all flex items-center gap-1 md:gap-2 uppercase tracking-widest shadow-sm"
+          onClick={() => router.push("/topics")} 
+          className="bg-[#1D2757] text-white px-4 py-2 rounded-md font-bold text-xs hover:bg-[#C5A059] transition-all uppercase tracking-widest"
         >
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="m15 18-6-6 6-6"/></svg>
-          <span className="hidden xs:inline">Volver</span>
+          Volver
         </button>
       </nav>
 
-      {/* CONTENIDO PRINCIPAL */}
-      <div className="flex-1 flex flex-col p-6 md:p-12 lg:p-20 relative">
-        
-        {/* SECCIÓN 1: EL CORAZÓN ANDINO (territorio1.png) - RECUADRO COMPLETO APLICADO */}
-        <motion.section 
-          initial="hidden" 
-          whileInView="visible" 
-          viewport={{ once: true }} 
-          className="w-full max-w-7xl mx-auto z-10 mb-32 bg-white p-10 md:p-16 rounded-[3rem] shadow-xl border border-gray-100 relative"
+      {/* SECCIÓN 1: MAPA */}
+      <section className="p-6 md:p-12 max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-10 items-center">
+        <motion.div 
+          initial={{ opacity: 0, x: -50 }} 
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="relative aspect-square bg-white p-4 rounded-3xl shadow-xl border border-gray-100"
         >
-          <div className="absolute top-0 left-0 w-full h-2 bg-[#C5A059]" />
-          <div className="flex flex-col md:flex-row gap-12 items-center">
-            <motion.div variants={revealVariants} className="flex-1 relative bg-white p-3 rounded-3xl shadow-2xl border border-gray-100">
-              <div className="absolute top-0 left-0 w-full lg:w-1 h-1 lg:h-full bg-[#C5A059]" />
-              <div className="relative w-full h-[300px] md:h-[450px] overflow-hidden rounded-2xl">
-                <Image src="/territorio1.png" alt="Altiplano" fill className="object-cover" />
-              </div>
-            </motion.div>
+           <img 
+             src="/territorio1.png" 
+             alt="Mapa Origen Torbellino" 
+             className="object-contain w-full h-full p-4 md:p-8" 
+           />
+        </motion.div>
 
-            <motion.div variants={revealVariants} className="flex-1 text-center md:text-left">
-              <h3 className="text-[#1D2757] text-4xl md:text-6xl font-black uppercase mb-6">El Corazón Andino</h3>
-              <p className="text-[#1D2757]/80 text-lg md:text-2xl font-medium leading-relaxed italic border-l-4 border-[#C5A059] pl-6 text-justify">
-                El torbellino nace en el <strong>altiplano cundiboyacense</strong>, con raíces profundas en Boyacá y Cundinamarca. Es una práctica cultural situada donde la música y la danza convergen como reflejo del mundo campesino.
-              </p>
-            </motion.div>
-          </div>
-        </motion.section>
-
-        {/* SECCIÓN 2: ENCUENTRO MESTIZO (territorio2.png) */}
-        <motion.section initial="hidden" whileInView="visible" viewport={{ once: true }} className="w-full max-w-7xl mx-auto z-10 mb-32 bg-white p-10 md:p-16 rounded-[3rem] shadow-xl border border-gray-100 relative">
-          <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#1D2757] via-[#C5A059] to-[#1D2757]" />
-          <div className="flex flex-col md:flex-row-reverse gap-12 items-center">
-            <motion.div variants={revealVariants} className="flex-1">
-              <h3 className="text-[#1D2757] text-4xl md:text-5xl font-black uppercase mb-6">Esencia Híbrida</h3>
-              <p className="text-[#1D2757]/80 text-lg md:text-xl font-medium leading-relaxed italic text-justify">
-                Como señala la tradición mestiza, aquí confluyen prácticas indígenas cordilleranas con influencias españolas coloniales. Un proceso de <strong>apropiación y resignificación cultural</strong> que define nuestra identidad folclórica.
-              </p>
-            </motion.div>
-            <motion.div variants={revealVariants} className="flex-1 relative bg-white p-3 rounded-3xl shadow-2xl border border-gray-100">
-                <div className="absolute top-0 left-0 w-full lg:w-1 h-1 lg:h-full bg-[#1D2757]" />
-                <div className="relative w-full h-[250px] md:h-[350px] overflow-hidden rounded-2xl">
-                    <Image src="/territorio2.png" alt="Mestizaje" fill className="object-cover" />
-                </div>
-            </motion.div>
-          </div>
-        </motion.section>
-
-        {/* SECCIÓN 3: LA DANZA EN EL TIEMPO (territorio3.png) */}
-        <motion.section initial="hidden" whileInView="visible" viewport={{ once: true }} className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 items-start">
-          <motion.div variants={revealVariants} className="flex-1 relative bg-white p-3 rounded-3xl shadow-2xl border border-gray-100 lg:sticky lg:top-32">
-            <div className="absolute top-0 left-0 w-full lg:w-1 h-1 lg:h-full bg-[#C5A059]" />
-            <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] overflow-hidden rounded-2xl">
-              <Image src="/territorio3.png" alt="Danza Histórica" fill className="object-cover" />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-6 text-center">
-                <p className="text-white text-base md:text-lg italic px-4 py-2 rounded-xl bg-white/5 backdrop-blur-sm inline-block">
-                  Desde el Siglo XVIII, un espacio de interacción social y códigos simbólicos.
-                </p>
-              </div>
-            </div>
-          </motion.div>
-
-          <div className="flex-1 flex flex-col gap-10">
-            {HISTORIA_TIMELINE.map((item) => (
-              <motion.div
-                key={item.id}
-                variants={item.id === 2 ? floatingVariants : revealVariants}
-                animate={item.id === 2 ? "animate" : "visible"}
-                className="bg-white p-8 rounded-[2rem] shadow-xl border border-gray-100 flex flex-col gap-4 text-center items-center relative"
-              >
-                <div className="absolute -top-6 -left-6 text-5xl md:text-6xl">{item.icon}</div>
-                <h4 className="text-[#C5A059] text-2xl font-black uppercase tracking-widest bg-[#F3F4F6] px-4 py-1 rounded-full">
-                  {item.siglo === "Actualidad" ? item.siglo : `Siglo ${item.siglo}`}
-                </h4>
-                <div className="h-0.5 w-16 bg-[#1D2757]" />
-                <ul className="text-[#1D2757]/90 text-sm md:text-lg font-medium italic list-none flex flex-wrap gap-3 justify-center">
-                  {item.hitos.map((hito, index) => (
-                    <li key={index} className="before:content-['•'] before:text-[#C5A059] before:mr-2">{hito}</li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
-          </div>
-        </motion.section>
-
-      </div>
-
-      <footer className="w-full bg-[#1D2757] p-4 border-t border-[#C5A059] mt-20 text-center">
-          <p className="text-[#C5A059] text-[10px] font-bold tracking-[0.5em] uppercase">
-            Identidad y Movimiento • Revitalización Universitaria UMNG
+        <motion.div 
+          initial={{ opacity: 0, x: 50 }} 
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="space-y-6"
+        >
+          <span className="bg-[#C5A059] text-white px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">
+            Núcleo Andino
+          </span>
+          <h3 className="text-[#1D2757] text-4xl md:text-6xl font-black leading-none uppercase">
+            Origen <br/> Territorial
+          </h3>
+          <p className="text-gray-600 text-lg md:text-xl leading-relaxed text-justify italic">
+            El Torbellino tiene su epicentro en el <b>Altiplano Cundiboyacense</b> y las montañas de <b>Santander</b>. Es una danza que respira la identidad del campesino, consolidándose como el eje cultural de la región centro-oriental de Colombia.
           </p>
+        </motion.div>
+      </section>
+
+      {/* SECCIÓN 2: GRID DE CARDS */}
+      <section className="p-6 md:p-12 max-w-7xl mx-auto w-full mb-20">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        >
+          {TERRITORIOS_DATA.map((card) => (
+            <motion.div
+              key={card.id}
+              layoutId={`card-${card.id}`} // ID único para la transición
+              variants={cardVariants}
+              whileHover="hover"
+              onClick={() => setSelectedId(card.id)} // Activa el despliegue
+              className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 flex flex-col group h-[28rem] md:h-[29rem] cursor-pointer"
+            >
+              <motion.div className="relative h-64 sm:h-72 w-full overflow-hidden">
+                <img 
+                  src={card.imagen} 
+                  alt={card.titulo} 
+                  className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105" 
+                />
+                <div className="absolute top-4 left-4">
+                  <span className="bg-[#1D2757]/90 backdrop-blur-md text-[#C5A059] px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-tighter">
+                    {card.tag}
+                  </span>
+                </div>
+              </motion.div>
+              
+              <div className="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <p className="text-[#C5A059] text-[10px] font-bold uppercase mb-1">{card.ubicacion}</p>
+                  <h4 className="text-[#1D2757] font-black text-lg leading-tight mb-3 uppercase">{card.titulo}</h4>
+                </div>
+                <p className="text-gray-500 text-xs italic leading-relaxed line-clamp-3">"{card.descripcion}"</p>
+              </div>
+              <div className="h-2 w-full bg-[#C5A059]" />
+            </motion.div>
+          ))}
+        </motion.div>
+      </section>
+
+      {/* ANIMACIÓN DE DESPLIEGUE (MODAL EXPANDIDO) */}
+      <AnimatePresence>
+        {selectedId && selectedItem && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
+            {/* Overlay oscuro de fondo */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedId(null)}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            />
+            
+            {/* Card Expandida */}
+            <motion.div 
+              layoutId={`card-${selectedId}`}
+              className="bg-white rounded-3xl overflow-hidden shadow-2xl border border-gray-100 flex flex-col w-full max-w-4xl max-h-[90vh] relative z-10"
+            >
+              <button 
+                onClick={() => setSelectedId(null)}
+                className="absolute top-4 right-4 z-20 bg-black/20 hover:bg-black/40 text-white p-2 rounded-full transition-colors"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M18 6 6 18M6 6l12 12"/></svg>
+              </button>
+
+              <div className="flex flex-col md:flex-row h-full">
+                <div className="relative h-64 md:h-auto md:w-1/2 overflow-hidden">
+                  <img 
+                    src={selectedItem.imagen} 
+                    alt={selectedItem.titulo} 
+                    className="object-cover w-full h-full" 
+                  />
+                  <div className="absolute top-6 left-6">
+                    <span className="bg-[#1D2757] text-[#C5A059] px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest shadow-xl">
+                      {selectedItem.tag}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="p-8 md:p-12 md:w-1/2 flex flex-col justify-center bg-white">
+                  <p className="text-[#C5A059] text-xs font-bold uppercase mb-2 tracking-[0.2em]">{selectedItem.ubicacion}</p>
+                  <h4 className="text-[#1D2757] font-black text-3xl md:text-4xl leading-tight mb-6 uppercase">{selectedItem.titulo}</h4>
+                  <div className="h-1 w-20 bg-[#C5A059] mb-6" />
+                  <p className="text-gray-600 text-lg md:text-xl leading-relaxed italic text-justify">
+                    {selectedItem.descripcion}
+                  </p>
+                </div>
+              </div>
+              <div className="h-3 w-full bg-[#1D2757]" />
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      <footer className="w-full bg-[#1D2757] p-8 text-center mt-auto">
+        <p className="text-[#C5A059] text-[10px] font-bold tracking-[0.5em] uppercase">
+          Identidad y Movimiento • Revitalización Universitaria UMNG
+        </p>
       </footer>
     </main>
   );

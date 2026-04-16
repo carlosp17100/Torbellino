@@ -5,7 +5,7 @@ import { motion, AnimatePresence, Variants } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-// 1. Definición de la Interfaz para evitar errores de tipo 'never'
+// 1. Definición de la Interfaz
 interface ContextoImage {
   id: number;
   src: string;
@@ -13,47 +13,29 @@ interface ContextoImage {
   description: string;
 }
 
-// 2. Datos de los contextos con tipado explícito
+// 2. Datos de los contextos con textos corregidos (Solo las 3 imágenes solicitadas)
 const CONTEXTO_IMAGES: ContextoImage[] = [
   { 
     id: 1, 
-    src: "/contexto1.jpg", 
-    alt: "Fiesta de Torbellino", 
-    description: "El Torbellino como tradición viva que une cultura, territorio y comunidad de los Andes colombianos. Una expresión de identidad que trasciende generaciones." 
+    src: "/contexto3.jpg", // Correspondiente a "Danza Circular"
+    alt: "ORIGEN Y MOVIMIENTO", 
+    description: "· Nace en el Altiplano cundiboyacense y Santander.\n· Baile en círculo continuo: giros, cruces y desplazamientos.\n· Ritmo ternario: 3/4 o 6/8." 
   },
   { 
     id: 2, 
-    src: "/contexto2.jpg", 
-    alt: "Música y Ritmo", 
-    description: "Estructura ternaria (3/4 o 6/8). El ritmo andino del altiplano ejecutado con tiple, requinto y chucho, marcando el pulso del corazón campesino." 
+    src: "/contexto6.jpg", // Correspondiente a "Origen Mestizo"
+    alt: "RAÍZ Y FUNCIÓN SOCIAL", 
+    description: "· Mestizaje: herencia indígena, española y campesina.\n· Práctica festiva y comunitaria.\n· Textos picarescos, amorosos o satíricos." 
   },
   { 
     id: 3, 
-    src: "/contexto3.jpg", 
-    alt: "Danza Circular", 
-    description: "Danza con giros, cruces y movimientos circulares que simbolizan el cosmos y el eterno retorno. La coreografía dibuja figuras en el suelo que evocan la espiral." 
-  },
-  { 
-    id: 4, 
-    src: "/contexto4.jpg", 
-    alt: "Función Social", 
-    description: "Práctica festival y campesina de integración comunitaria. Un espacio donde el baile permite el encuentro, la ayuda mutua y el fortalecimiento de lazos sociales." 
-  },
-  { 
-    id: 5, 
-    src: "/contexto5.jpg", 
-    alt: "Torbellino de quererse", 
-    description: "Entre pasos y miradas, el amor se juega bailando. El galanteo es sutil: un juego de persecución y recato donde el pañuelo y la mirada lo dicen todo." 
-  },
-  { 
-    id: 6, 
-    src: "/contexto6.jpg", 
-    alt: "Origen Mestizo", 
-    description: "Herencia indígena, española y campesina. Una amalgama cultural que funde la solemnidad de los rituales nativos con la rítmica y los instrumentos europeos." 
+    src: "/contexto2.jpg", // Correspondiente a "Música y Ritmo"
+    alt: "ESTRUCTURA MUSICAL", 
+    description: "· Forma breve y reiterativa.\n· Alterna coplas (versos cantados) con interludios instrumentales." 
   },
 ];
 
-// 3. Variantes de animación con tipado 'Variants' para evitar errores de asignación
+// 3. Variantes de animación
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -78,8 +60,6 @@ const itemVariants: Variants = {
 
 export default function ContextoPage() {
   const router = useRouter();
-  
-  // 4. Estado con tipo Genérico <ContextoImage | null>
   const [selectedImage, setSelectedImage] = useState<ContextoImage | null>(null);
 
   return (
@@ -130,12 +110,12 @@ export default function ContextoPage() {
           </p>
         </motion.div>
 
-        {/* GRID INTERACTIVO */}
+        {/* GRID INTERACTIVO (Limitado a 3 elementos) */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto"
         >
           {CONTEXTO_IMAGES.map((img) => (
             <motion.div
@@ -184,7 +164,7 @@ export default function ContextoPage() {
               <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
             </button>
 
-            {/* Imagen Alargada */}
+            {/* Imagen Ampliada */}
             <motion.div
               initial={{ scale: 0.9, opacity: 0, y: 30 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -202,7 +182,7 @@ export default function ContextoPage() {
               />
             </motion.div>
             
-            {/* Texto Descriptivo */}
+            {/* Texto Descriptivo Actualizado */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -213,7 +193,7 @@ export default function ContextoPage() {
               <h4 className="text-[#1D2757] text-2xl md:text-3xl font-black uppercase tracking-wider mb-4">
                 {selectedImage.alt}
               </h4>
-              <p className="text-[#1D2757] text-lg md:text-2xl font-medium leading-relaxed italic">
+              <p className="text-[#1D2757] text-lg md:text-2xl font-medium leading-relaxed italic whitespace-pre-line">
                 {selectedImage.description}
               </p>
             </motion.div>
