@@ -1,163 +1,184 @@
 "use client";
 
-import { useState } from "react";
-import { motion, Variants, AnimatePresence } from "framer-motion";
+import { useState, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { X, Music } from "lucide-react"; 
 
-// 1. Interfaces
+// 1. Definición de la estructura de datos
 interface Instrumento {
-  id: number;
-  src: string;
-  name: string;
-  functionTitle: string;
-  functionDesc: string;
-  roleIcon: string;
+  id: string;
+  nombre: string;
+  tipo: string;
+  descripcion: string;
+  imagen: string;
 }
 
-// 2. Datos
-const TODOS_LOS_INSTRUMENTOS: Instrumento[] = [
-  { id: 1, src: "/image_1.png", name: "El Tiple", functionTitle: "Base Armónica", functionDesc: "Sostiene el pulso constante y la riqueza rítmica del torbellino.", roleIcon: "🎸" },
-  { id: 2, src: "/image_2.png", name: "La Guitarra", functionTitle: "Soporte Rítmico", functionDesc: "Refuerza la estructura armónica y el tempo de la obra.", roleIcon: "🎸" },
-  { id: 3, src: "/image_3.png", name: "El Requinto", functionTitle: "Voz Melódica", functionDesc: "Lidera las melodías ágiles y los punteos característicos.", roleIcon: "✨" },
-  { id: 4, src: "/image_4.png", name: "Guacharaca", functionTitle: "Textura Rítmica", functionDesc: "Acompañamiento tímbrico esencial festivo.", roleIcon: "🎋" },
-  { id: 5, src: "/image_5.png", name: "Esterilla", functionTitle: "Fricción de Caña", functionDesc: "Sonoridad vernácula por frotación.", roleIcon: "🎋" },
-  { id: 6, src: "/image_6.png", name: "Quiribillo", functionTitle: "Brillo Tímbrico", functionDesc: "Percusión menor de carácter tradicional.", roleIcon: "🎋" },
-  { id: 7, src: "/image_7.png", name: "La Puerca", functionTitle: "Base Grave", functionDesc: "Tambor de fricción con sonido vibrante.", roleIcon: "🥁" },
-  { id: 8, src: "/image_8.png", name: "Flauta de Caña", functionTitle: "Matiz de Viento", functionDesc: "Aporta colores melódicos ancestrales.", roleIcon: "🎶" },
+// 2. Datos constantes (Afuera del componente para evitar recreación)
+const LISTA_INSTRUMENTOS: Instrumento[] = [
+  { id: "tiple", nombre: "El Tiple", tipo: "Base Armónica", descripcion: "Sostiene el pulso constante y la riqueza rítmica del torbellino.", imagen: "/instrumento1.jpg" },
+  { id: "requinto", nombre: "El Requinto", tipo: "Melódico / Armónico", descripcion: "Encargado de las melodías principales y bordoneos vibrantes.", imagen: "/instrumento2.jpg" },
+  { id: "guitarra", nombre: "Guitarra", tipo: "Base Rítmica / Armónica", descripcion: "Proporciona el soporte tonal y la profundidad rítmica necesaria.", imagen: "/instrumento3.jpg" },
+  { id: "guacharaca", nombre: "Guacharaca", tipo: "Base Rítmica", descripcion: "Aporta el brillo y la síncopa característica del ensamble.", imagen: "/instrumento4.jpg" },
+  { id: "esterilla", nombre: "Esterilla", tipo: "Percusión de Idiofono", descripcion: "Instrumento de caña que genera un sonido rasposo rítmico esencial.", imagen: "/instrumento5.jpg" },
+  { id: "quiribillo", nombre: "Quiribillo", tipo: "Percusión Rítmica", descripcion: "Conjunto de canutillos de caña que producen un sonido seco y festivo.", imagen: "/instrumento6.jpg" },
+  { id: "puerca", nombre: "Puerca", tipo: "Percusión de Fricción", descripcion: "Membranófono frotado que produce un sonido ronco y rústico tradicional.", imagen: "/instrumento7.jpg" },
+  { id: "flauta", nombre: "Flauta de Caña", tipo: "Viento / Aerófono", descripcion: "Aporta melodías dulces y pastoriles que evocan el origen del campo.", imagen: "/instrumento8.jpg" }
 ];
 
-const containerVars: Variants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
-};
-
-const itemVars: Variants = {
-  hidden: { y: 30, opacity: 0 },
-  visible: { y: 0, opacity: 1, transition: { type: "spring", damping: 20 } }
-};
-
-export default function InstrumentacionPage() {
+export default function SoporteInstrumental() {
   const router = useRouter();
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+
+  // 3. OPTIMIZACIÓN: useMemo para el cálculo del instrumento seleccionado
+  const selectedInstrumento = useMemo(() => 
+    LISTA_INSTRUMENTOS.find(i => i.id === selectedId), 
+  [selectedId]);
+
+  // 4. OPTIMIZACIÓN: useMemo para renderizar la lista de tarjetas
+  const InstrumentCards = useMemo(() => {
+    return LISTA_INSTRUMENTOS.map((inst) => (
+      <motion.div
+        key={inst.id}
+        layoutId={`card-${inst.id}`}
+        onClick={() => setSelectedId(inst.id)}
+        className="bg-white rounded-[2.5rem] overflow-hidden cursor-pointer shadow-md hover:shadow-xl transition-all group border border-gray-100 flex flex-col h-full"
+        whileHover={{ y: -8 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
+        <div className="relative w-full aspect-square sm:aspect-video md:aspect-[4/5] overflow-hidden">
+          <Image
+            src={inst.imagen}
+            alt={inst.nombre}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover group-hover:scale-105 transition-transform duration-700"
+            priority={inst.id === "tiple"} 
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+          <motion.h3 
+            layoutId={`title-${inst.id}`}
+            className="absolute bottom-6 left-6 right-6 text-white text-xl sm:text-2xl md:text-3xl font-black uppercase italic tracking-tighter"
+          >
+            {inst.nombre}
+          </motion.h3>
+        </div>
+
+        <div className="p-6 md:p-8 flex flex-col gap-3 flex-grow justify-center">
+          <div className="flex items-start gap-4">
+             <div className="bg-pink-50 p-3 rounded-2xl shrink-0">
+                <Music className="text-pink-500" size={20} />
+             </div>
+             <div className="overflow-hidden">
+                <h4 className="text-[#1D2757] font-black uppercase text-sm sm:text-base md:text-lg leading-tight truncate">
+                  {inst.tipo}
+                </h4>
+                <p className="text-gray-500 text-xs sm:text-sm italic mt-1 line-clamp-2 md:line-clamp-none">
+                  {inst.descripcion}
+                </p>
+             </div>
+          </div>
+        </div>
+      </motion.div>
+    ));
+  }, []);
 
   return (
-    <main className="min-h-screen bg-[#F8F9FA] flex flex-col font-sans">
+    <main className="min-h-screen bg-[#F9FAFB] flex flex-col font-sans relative overflow-x-hidden">
       
-      {/* NAV */}
-      <nav className="w-full p-6 flex justify-between items-center bg-white shadow-sm border-b sticky top-0 z-50">
-        <div className="flex items-center gap-4 cursor-pointer" onClick={() => router.push("/")}>
-          <Image src="/umng-logo.png" alt="UMNG" width={40} height={40} />
-          <span className="text-[#1D2757] font-bold text-[10px] uppercase leading-tight border-l pl-4 border-gray-200">
+      {/* NAVEGACIÓN RESPONSIVE */}
+      <nav className="w-full px-6 py-4 md:px-12 md:py-6 flex justify-between items-center bg-white border-b sticky top-0 z-50 shadow-sm">
+        <div className="flex items-center gap-3 cursor-pointer" onClick={() => router.push("/")}>
+          <Image src="/umng-logo.png" alt="UMNG" width={40} height={40} className="w-8 h-8 md:w-10 md:h-10" />
+          <span className="hidden xs:block text-[#1D2757] font-bold text-[10px] md:text-xs uppercase leading-tight border-l pl-3">
             Universidad Militar <br /> Nueva Granada
           </span>
         </div>
-        <h2 className="hidden md:block text-[#1D2757] font-black text-lg tracking-[0.2em] uppercase">Soporte Instrumental</h2>
         
-        {/* BOTÓN ACTUALIZADO SEGÚN IMAGEN */}
+        <h2 className="text-[#1D2757] font-black text-[10px] md:text-sm lg:text-lg uppercase tracking-[0.2em]">
+            Soporte Instrumental
+        </h2>
+
         <button 
-          onClick={() => router.push("/topics")} 
-          className="bg-[#1D2757] text-white px-4 py-2 rounded-md flex items-center gap-2 hover:bg-[#25316d] transition-all group"
+          onClick={() => router.push("/topics")}
+          className="bg-[#1D2757] text-white px-4 py-2 md:px-8 md:py-2.5 rounded-lg font-bold text-[10px] md:text-xs uppercase hover:bg-[#C5A059] transition-all flex items-center gap-2"
         >
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            width="14" 
-            height="14" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
-            strokeWidth="3" 
-            strokeLinecap="round" 
-            strokeLinejoin="round"
-          >
-            <path d="m15 18-6-6 6-6"/>
-          </svg>
-          <span className="font-bold text-[11px] uppercase tracking-widest">
-            Volver
-          </span>
+          <X size={14} className="hidden sm:block" /> Volver
         </button>
       </nav>
 
-      {/* CONTENIDO */}
-      <div className="max-w-3xl mx-auto w-full p-6 py-12 md:py-20">
-        
-        <header className="text-center mb-16">
-          <h3 className="text-[#C5A059] text-xs font-black uppercase tracking-[0.5em] mb-4">Catálogo de Instrumentación</h3>
-          <div className="h-1 w-20 bg-[#1D2757] mx-auto"></div>
-        </header>
+      {/* GRID OPTIMIZADO: 1 col móvil, 2 col tablet, 3 col laptop, 4 col desktop XL */}
+      <section className="max-w-[1440px] mx-auto w-full px-6 py-10 md:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-10">
+          {InstrumentCards}
+        </div>
+      </section>
 
-        <motion.div 
-          variants={containerVars} 
-          initial="hidden" 
-          animate="visible"
-          className="flex flex-col gap-12"
-        >
-          {TODOS_LOS_INSTRUMENTOS.map((inst) => (
-            <motion.div 
-              key={inst.id} 
-              variants={itemVars}
-              onClick={() => setSelectedImage(inst.src)}
-              className="group bg-white rounded-[2.5rem] shadow-md border border-gray-100 overflow-hidden cursor-pointer hover:shadow-2xl transition-all duration-500"
-            >
-              <div className="flex flex-col">
-                <div className="relative h-64 md:h-80 w-full overflow-hidden">
-                  <Image 
-                    src={inst.src} 
-                    alt={inst.name} 
-                    fill 
-                    className="object-cover group-hover:scale-105 transition-transform duration-700" 
-                    unoptimized 
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#1D2757]/60 to-transparent"></div>
-                  <div className="absolute bottom-6 left-8">
-                    <p className="text-white font-black uppercase tracking-[0.3em] text-2xl">{inst.name}</p>
-                  </div>
-                </div>
-
-                <div className="p-8 md:p-10 flex flex-col md:flex-row items-center gap-6">
-                  <div className="text-5xl shrink-0 opacity-80 group-hover:scale-110 transition-transform">
-                    {inst.roleIcon}
-                  </div>
-                  <div className="text-center md:text-left">
-                    <h4 className="text-[#1D2757] font-black uppercase text-lg mb-2 tracking-tight">
-                      {inst.functionTitle}
-                    </h4>
-                    <p className="text-gray-500 text-sm leading-relaxed italic max-w-md">
-                      {inst.functionDesc}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-
-      <footer className="w-full bg-[#1D2757] p-8 mt-20">
-        <p className="text-[#C5A059] text-[10px] font-bold tracking-[0.5em] uppercase text-center opacity-80">
-          Identidad y Movimiento • Proyecto UMNG
+      {/* FOOTER */}
+      <footer className="w-full bg-[#1D2757] py-8 px-6 mt-auto border-t border-[#C5A059]/30">
+        <p className="text-[#C5A059] text-[9px] md:text-xs font-bold tracking-[0.3em] uppercase text-center">
+          Identidad y Movimiento • Proyecto UMNG • 2026
         </p>
       </footer>
 
-      {/* MODAL ZOOM */}
+      {/* MODAL RESPONSIVE */}
       <AnimatePresence>
-        {selectedImage && (
-          <motion.div
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            onClick={() => setSelectedImage(null)}
-            className="fixed inset-0 z-[100] bg-[#1D2757]/95 backdrop-blur-md flex items-center justify-center p-6 cursor-zoom-out"
-          >
+        {selectedId && selectedInstrumento && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-10">
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}
-              className="relative w-full max-w-5xl h-[70vh]"
-              onClick={(e) => e.stopPropagation()}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedId(null)}
+              className="absolute inset-0 bg-[#0A0F1E]/95 backdrop-blur-md"
+            />
+
+            <motion.div
+              layoutId={`card-${selectedId}`}
+              className="relative bg-white w-full max-w-5xl rounded-[2rem] md:rounded-[3.5rem] overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh]"
             >
-              <Image src={selectedImage} alt="Zoom" fill className="object-contain" unoptimized />
-              <button onClick={() => setSelectedImage(null)} className="absolute -top-12 right-0 text-white/50 hover:text-white transition-colors">
-                <span className="text-xs uppercase tracking-widest font-bold">Cerrar [X]</span>
+              <button 
+                onClick={() => setSelectedId(null)}
+                className="absolute top-4 right-4 md:top-8 md:right-8 z-20 bg-gray-100/80 backdrop-blur-md text-[#1D2757] p-2 md:p-3 rounded-full hover:bg-red-50 hover:text-red-500 transition-colors shadow-sm"
+              >
+                <X size={20} />
               </button>
+
+              <div className="w-full md:w-1/2 relative h-64 sm:h-80 md:h-auto bg-gray-50">
+                <Image
+                  src={selectedInstrumento.imagen}
+                  alt={selectedInstrumento.nombre}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+              <div className="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center bg-white overflow-y-auto">
+                <motion.h2 
+                  layoutId={`title-${selectedId}`}
+                  className="text-[#1D2757] text-3xl md:text-5xl font-black uppercase italic mb-2 md:mb-4 leading-tight"
+                >
+                  {selectedInstrumento.nombre}
+                </motion.h2>
+                <span className="text-[#C5A059] font-bold uppercase tracking-widest text-xs md:text-sm mb-6 pb-2 border-b border-gray-100">
+                    {selectedInstrumento.tipo}
+                </span>
+                
+                <p className="text-gray-600 leading-relaxed mb-8 md:mb-12 text-sm md:text-lg">
+                  {selectedInstrumento.descripcion}
+                </p>
+
+                <button 
+                  onClick={() => setSelectedId(null)}
+                  className="bg-[#1D2757] text-white w-full md:w-fit px-12 py-4 rounded-full font-bold uppercase text-[10px] md:text-xs hover:bg-[#C5A059] transition-all shadow-lg active:scale-95"
+                >
+                  Regresar a Galería
+                </button>
+              </div>
             </motion.div>
-          </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </main>

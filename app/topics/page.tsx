@@ -27,20 +27,23 @@ const TOPICS: Topic[] = [
   { id: "pregunta", label: "Pregunta Problema", emoji: "❓", x: 50, y: 14 },
   { id: "metodologia", label: "Diseño Metodológico", emoji: "🔬", x: 50, y: 52, isCenter: true },
 
-  // --- LADO DERECHO (6 temas) ---
+  // --- LADO DERECHO (7 temas) ---
   { id: "obj-general", label: "Objetivo General", emoji: "🎯", x: 80, y: 25 },
   { id: "tecnicas", label: "Técnicas e Instrumentos", emoji: "🛠️", x: 92, y: 48 },
-  { id: "escena", label: "Puesta en Escena", emoji: "🎭", x: 82, y: 70 }, // <-- Movido según círculo verde (más abajo y a la derecha)
+  { id: "escena", label: "Puesta en Escena", emoji: "🎭", x: 82, y: 70 },
   { id: "melodia", label: "Melodía y Danza", emoji: "🎵", x: 62, y: 90 },
   { id: "multimedia", label: "Multimedia", emoji: "🎬", x: 94, y: 75 },
   { id: "bibliografia", label: "Bibliografía", emoji: "📚", x: 84, y: 94 },
+  // ID cambiado a "contexto" para que la URL sea /topics/contexto
+  { id: "contexto", label: "Contexto Coreográfico", emoji: "🩰", x: 72, y: 82 },
 ];
 
 const CONNECTIONS: [number, number][] = [
   // Conexiones desde el centro (metodología - Index 7)
-  [7, 0], [7, 1], [7, 2], [7, 5], [7, 6], [7, 8], [7, 9], [7, 10], [7, 11],
+  [7, 0], [7, 1], [7, 2], [7, 5], [7, 6], [7, 8], [7, 9], [7, 10], [7, 11], [7, 14],
   // Conexiones periféricas
-  [0, 6], [6, 8], [1, 0], [9, 8], [2, 1], [3, 4], [4, 5], [10, 9], [12, 10], [12, 13], [13, 11], [5, 11]
+  [0, 6], [6, 8], [1, 0], [9, 8], [2, 1], [3, 4], [4, 5], [10, 9], [12, 10], [12, 13], [13, 11], [5, 11],
+  [14, 11], [14, 10]
 ];
 
 export default function TopicsPage() {
@@ -83,6 +86,7 @@ export default function TopicsPage() {
         <motion.button
           whileHover={{ scale: 1.1, zIndex: 50 }}
           whileTap={{ scale: 0.95 }}
+          // Al ser el id "contexto", esto navegará a /topics/contexto
           onClick={() => router.push(`/topics/${topic.id}`)}
           className={`
             flex flex-col items-center justify-center transition-all duration-300

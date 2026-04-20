@@ -1,10 +1,9 @@
 "use client";
 
-import { motion, Variants, AnimatePresence } from "framer-motion"; // Añadido AnimatePresence
+import { motion, Variants, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { useState } from "react"; // Añadido useState
+import { useState } from "react";
 
-// 1. Estructura de Datos (Sin cambios)
 const TERRITORIOS_DATA = [
   {
     id: 1,
@@ -40,130 +39,78 @@ const TERRITORIOS_DATA = [
   }
 ];
 
-// 2. Variantes de Animación
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.2 }
-  }
+  visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
 };
 
-const cardVariants = {
+const cardVariants: Variants = {
   hidden: { y: 20, opacity: 0 },
-  visible: { 
-    y: 0, 
-    opacity: 1, 
-    transition: { type: "spring", stiffness: 100, damping: 12 } 
-  },
-  hover: { 
-    y: -10, 
-    transition: { duration: 0.3 } 
-  }
-} as const;
+  visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 100, damping: 15 } },
+  hover: { y: -10, transition: { duration: 0.3 } }
+};
 
 export default function TerritorioPage() {
   const router = useRouter();
-  // Estado para manejar qué card está expandida
   const [selectedId, setSelectedId] = useState<number | null>(null);
-
-  // Encontrar la data del elemento seleccionado
   const selectedItem = TERRITORIOS_DATA.find(item => item.id === selectedId);
 
   return (
     <main className="min-h-screen bg-[#F8F9FA] flex flex-col font-sans overflow-x-hidden">
       
       {/* NAVEGACIÓN */}
-      <nav className="w-full p-4 md:p-6 flex justify-between items-center z-50 bg-white shadow-sm sticky top-0">
-        <div className="flex items-center gap-4 cursor-pointer" onClick={() => router.push("/")}>
-          <div className="relative w-10 h-10">
-            <img src="/umng-logo.png" alt="UMNG" className="object-contain w-full h-full" />
-          </div>
-          <span className="text-[#1D2757] font-bold text-[10px] md:text-xs uppercase leading-tight border-l pl-4 border-gray-200">
+      <nav className="w-full p-4 md:px-12 md:py-6 flex justify-between items-center z-50 bg-white shadow-sm sticky top-0">
+        <div className="flex items-center gap-3 cursor-pointer" onClick={() => router.push("/")}>
+          <img src="/umng-logo.png" alt="UMNG" className="w-8 h-8 md:w-10 md:h-10 object-contain" />
+          <span className="text-[#1D2757] font-bold text-[9px] md:text-xs uppercase leading-tight border-l pl-3 border-gray-200">
             Universidad Militar <br /> Nueva Granada
           </span>
         </div>
-        <h2 className="text-[#1D2757] font-black text-sm md:text-xl tracking-widest uppercase">
-          Territorios <span className="text-[#C5A059]">del Torbellino</span>
-        </h2>
         <button 
           onClick={() => router.push("/topics")} 
-          className="bg-[#1D2757] text-white px-4 py-2 rounded-md font-bold text-xs hover:bg-[#C5A059] transition-all uppercase tracking-widest"
+          className="bg-[#1D2757] text-white px-5 py-2 md:px-8 md:py-3 rounded-full font-bold text-[10px] md:text-xs uppercase tracking-widest hover:bg-[#C5A059] transition-all shadow-md"
         >
           Volver
         </button>
       </nav>
 
-      {/* SECCIÓN 1: MAPA */}
-      <section className="p-6 md:p-12 max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-10 items-center">
-        <motion.div 
-          initial={{ opacity: 0, x: -50 }} 
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          className="relative aspect-square bg-white p-4 rounded-3xl shadow-xl border border-gray-100"
-        >
-           <img 
-             src="/territorio1.png" 
-             alt="Mapa Origen Torbellino" 
-             className="object-contain w-full h-full p-4 md:p-8" 
-           />
-        </motion.div>
-
-        <motion.div 
-          initial={{ opacity: 0, x: 50 }} 
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          className="space-y-6"
-        >
-          <span className="bg-[#C5A059] text-white px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">
-            Núcleo Andino
-          </span>
-          <h3 className="text-[#1D2757] text-4xl md:text-6xl font-black leading-none uppercase">
-            Origen <br/> Territorial
-          </h3>
-          <p className="text-gray-600 text-lg md:text-xl leading-relaxed text-justify italic">
-            El Torbellino tiene su epicentro en el <b>Altiplano Cundiboyacense</b> y las montañas de <b>Santander</b>. Es una danza que respira la identidad del campesino, consolidándose como el eje cultural de la región centro-oriental de Colombia.
+      {/* CONTENIDO PRINCIPAL (MAPA) */}
+      <section className="p-6 md:p-12 lg:p-20 max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+        <div className="relative aspect-square bg-white p-6 rounded-[2.5rem] shadow-xl order-2 md:order-1">
+           <img src="/territorio1.png" alt="Mapa" className="w-full h-full object-contain" />
+        </div>
+        <div className="space-y-6 text-center md:text-left order-1 md:order-2">
+          <span className="inline-block bg-[#C5A059] text-white px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest">Núcleo Andino</span>
+          <h3 className="text-[#1D2757] text-4xl md:text-6xl font-black uppercase">Origen <br/> Territorial</h3>
+          <p className="text-gray-600 text-lg md:text-xl italic leading-relaxed">
+            El Torbellino tiene su epicentro en el Altiplano Cundiboyacense y Santander.
           </p>
-        </motion.div>
+        </div>
       </section>
 
-      {/* SECCIÓN 2: GRID DE CARDS */}
+      {/* GRID DE TARJETAS */}
       <section className="p-6 md:p-12 max-w-7xl mx-auto w-full mb-20">
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
-        >
+        <motion.div variants={containerVariants} initial="hidden" whileInView="visible" className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-10">
           {TERRITORIOS_DATA.map((card) => (
             <motion.div
               key={card.id}
-              layoutId={`card-${card.id}`} // ID único para la transición
+              layoutId={`card-${card.id}`}
               variants={cardVariants}
               whileHover="hover"
-              onClick={() => setSelectedId(card.id)} // Activa el despliegue
-              className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 flex flex-col group h-[28rem] md:h-[29rem] cursor-pointer"
+              onClick={() => setSelectedId(card.id)}
+              className="bg-white rounded-3xl overflow-hidden shadow-lg border border-gray-100 flex flex-col group cursor-pointer"
             >
-              <motion.div className="relative h-64 sm:h-72 w-full overflow-hidden">
-                <img 
-                  src={card.imagen} 
-                  alt={card.titulo} 
-                  className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105" 
-                />
+              <div className="relative h-56 w-full overflow-hidden">
+                <img src={card.imagen} alt={card.titulo} className="w-full h-full object-cover transition-transform group-hover:scale-110" />
                 <div className="absolute top-4 left-4">
-                  <span className="bg-[#1D2757]/90 backdrop-blur-md text-[#C5A059] px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-tighter">
-                    {card.tag}
-                  </span>
+                  <span className="bg-[#1D2757]/90 text-[#C5A059] px-3 py-1.5 rounded-xl text-[9px] font-black uppercase">{card.tag}</span>
                 </div>
-              </motion.div>
-              
-              <div className="p-6 flex-1 flex flex-col justify-between">
-                <div>
-                  <p className="text-[#C5A059] text-[10px] font-bold uppercase mb-1">{card.ubicacion}</p>
-                  <h4 className="text-[#1D2757] font-black text-lg leading-tight mb-3 uppercase">{card.titulo}</h4>
-                </div>
-                <p className="text-gray-500 text-xs italic leading-relaxed line-clamp-3">"{card.descripcion}"</p>
+              </div>
+              <div className="p-6 flex-1 flex flex-col">
+                <p className="text-[#C5A059] text-[10px] font-bold uppercase mb-2">{card.ubicacion}</p>
+                <h4 className="text-[#1D2757] font-black text-xl uppercase mb-4">{card.titulo}</h4>
+                <p className="text-gray-500 text-sm italic line-clamp-3 mb-4">"{card.descripcion}"</p>
+                <div className="mt-auto text-[#1D2757] font-bold text-[10px] uppercase">Explorar Detalles →</div>
               </div>
               <div className="h-2 w-full bg-[#C5A059]" />
             </motion.div>
@@ -171,64 +118,64 @@ export default function TerritorioPage() {
         </motion.div>
       </section>
 
-      {/* ANIMACIÓN DE DESPLIEGUE (MODAL EXPANDIDO) */}
+      {/* MODAL CORREGIDO */}
       <AnimatePresence>
         {selectedId && selectedItem && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
-            {/* Overlay oscuro de fondo */}
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
             <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               onClick={() => setSelectedId(null)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              className="absolute inset-0 bg-[#0A0F1E]/95 backdrop-blur-md"
             />
             
-            {/* Card Expandida */}
             <motion.div 
               layoutId={`card-${selectedId}`}
-              className="bg-white rounded-3xl overflow-hidden shadow-2xl border border-gray-100 flex flex-col w-full max-w-4xl max-h-[90vh] relative z-10"
+              className="bg-white rounded-[2.5rem] overflow-hidden shadow-2xl flex flex-col w-full max-w-4xl max-h-[90vh] relative z-10"
             >
+              {/* Botón Cerrar */}
               <button 
                 onClick={() => setSelectedId(null)}
-                className="absolute top-4 right-4 z-20 bg-black/20 hover:bg-black/40 text-white p-2 rounded-full transition-colors"
+                className="absolute top-4 right-4 z-30 bg-white text-[#1D2757] p-2 rounded-full shadow-lg hover:bg-gray-100 transition-all"
               >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
               </button>
 
-              <div className="flex flex-col md:flex-row h-full">
-                <div className="relative h-64 md:h-auto md:w-1/2 overflow-hidden">
+              <div className="flex flex-col md:flex-row overflow-y-auto">
+                {/* CONTENEDOR DE IMAGEN CORREGIDO */}
+                <div className="relative h-48 sm:h-64 md:h-auto md:w-1/2 bg-gray-100 shrink-0 overflow-hidden">
                   <img 
                     src={selectedItem.imagen} 
                     alt={selectedItem.titulo} 
-                    className="object-cover w-full h-full" 
+                    className="w-full h-full object-cover object-top" 
                   />
-                  <div className="absolute top-6 left-6">
-                    <span className="bg-[#1D2757] text-[#C5A059] px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest shadow-xl">
-                      {selectedItem.tag}
-                    </span>
-                  </div>
                 </div>
 
+                {/* TEXTO */}
                 <div className="p-8 md:p-12 md:w-1/2 flex flex-col justify-center bg-white">
-                  <p className="text-[#C5A059] text-xs font-bold uppercase mb-2 tracking-[0.2em]">{selectedItem.ubicacion}</p>
-                  <h4 className="text-[#1D2757] font-black text-3xl md:text-4xl leading-tight mb-6 uppercase">{selectedItem.titulo}</h4>
-                  <div className="h-1 w-20 bg-[#C5A059] mb-6" />
-                  <p className="text-gray-600 text-lg md:text-xl leading-relaxed italic text-justify">
+                  <p className="text-[#C5A059] text-xs font-bold uppercase mb-2 tracking-widest">{selectedItem.ubicacion}</p>
+                  <h4 className="text-[#1D2757] font-black text-3xl md:text-5xl uppercase mb-6 leading-tight">
+                    {selectedItem.titulo}
+                  </h4>
+                  <div className="h-1.5 w-16 bg-[#C5A059] mb-8" />
+                  <p className="text-gray-600 text-lg italic text-justify leading-relaxed">
                     {selectedItem.descripcion}
                   </p>
+                  <button 
+                    onClick={() => setSelectedId(null)}
+                    className="mt-10 w-full md:w-auto bg-[#1D2757] text-white px-10 py-4 rounded-full font-black text-xs uppercase tracking-widest hover:bg-[#C5A059] transition-all"
+                  >
+                    Regresar
+                  </button>
                 </div>
               </div>
-              <div className="h-3 w-full bg-[#1D2757]" />
+              <div className="h-3 w-full bg-[#1D2757] shrink-0" />
             </motion.div>
           </div>
         )}
       </AnimatePresence>
 
-      <footer className="w-full bg-[#1D2757] p-8 text-center mt-auto">
-        <p className="text-[#C5A059] text-[10px] font-bold tracking-[0.5em] uppercase">
-          Identidad y Movimiento • Revitalización Universitaria UMNG
-        </p>
+      <footer className="w-full bg-[#1D2757] py-10 text-center mt-auto">
+        <p className="text-[#C5A059] text-[9px] font-bold tracking-[0.4em] uppercase">Identidad y Movimiento • UMNG</p>
       </footer>
     </main>
   );
