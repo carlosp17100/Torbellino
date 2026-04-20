@@ -11,7 +11,7 @@ const VESTUARIO_DETALLE = {
     titulo: "Indumentaria Femenina",
     imagen: "/mujer.png", // CORREGIDO: Extension .png para coincidir con tu archivo físico
     items: [
-      { p: "Falda amplia", d: "Larga, de colores vivos o florales, permite el movimiento circular." },
+      { p: "Falda tres cuartos", d: "Generalmente de color negro, que permite el movimiento circular característico de la danza." },
       { p: "Blusa blanca", d: "Manga larga o 3/4 con encajes o bordados tradicionales." },
       { p: "Delantal", d: "Referencia al trabajo doméstico y campesino decorado." },
       { p: "Pañolón", d: "Mantilla sobre los hombros para protección térmica." },
@@ -34,7 +34,7 @@ const VESTUARIO_DETALLE = {
 const ETAPAS_EVOLUCION = [
   { id: "tradicional", titulo: "Etapa Tradicional", sub: "Contexto rural y festivo", texto: "El vestuario respondía a la vida cotidiana campesina. No existía un 'traje escénico'; las personas bailaban con su ropa habitual de domingo." },
   { id: "institucional", titulo: "Institucionalización", sub: "Siglo XX - Folclorismo", texto: "Estandarización para grupos folclóricos. Se amplió el vuelo de las faldas y se incorporaron colores más vivos para el escenario teatral." },
-  { id: "contemporanea", titulo: "Etapa Contemporánea", sub: "Investigación – Creación", texto: "Reinterpretación simbólica. Se experimenta con materiales livianos y nuevas paletas sin perder elementos identitarios como la ruana." }
+  { id: "contemporanea", titulo: "Etapa Contemporánea", sub: "Investigación – Creación", texto: " Reinterpretación simbólica se experimenta con nuevas paletas de colores en textiles sin perder bases tradicionales." }
 ];
 
 export default function VestuarioPage() {

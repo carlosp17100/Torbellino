@@ -52,28 +52,20 @@ const FASES = [
         </section>
 
         <section>
-          <p className="font-black text-[#1D2757] mb-1">3.2 Creación escénica</p>
+          <p className="font-black text-[#1D2757] mb-1">3.2 Acompañmiento </p>
+          <ul className="pl-4 space-y-1">
+            <li>• Orientación dramatúrgica</li>
+            <li>• Consolodicación conceptual </li>
+            <li>• Articulación de la propuesta escénica</li>
+          </ul>
+        </section>
+
+        <section>
+          <p className="font-black text-[#1D2757] mb-1">3.3 Creación escénica</p>
           <ul className="pl-4 space-y-1">
             <li>• Estructurar una propuesta escénica</li>
             <li>• Dialoga con la tradición del torbellino</li>
             <li>• Vinculado al contexto histórico y territorial</li>
-          </ul>
-        </section>
-
-        <section>
-          <p className="font-black text-[#1D2757] mb-1">3.3 Acompañamiento</p>
-          <ul className="pl-4 space-y-1">
-            <li>• Orientación dramatúrgica</li>
-            <li>• Consolidación conceptual</li>
-            <li>• Articular hallazgos y coherencia con la propuesta</li>
-          </ul>
-        </section>
-
-        <section>
-          <p className="font-black text-[#1D2757] mb-1">3.4 Resultados de la fase</p>
-          <ul className="pl-4 space-y-1">
-            <li>• Examinar implicaciones culturales, pedagógicas y creativas</li>
-            <li>• Transformaciones en participantes y propuesta escénica</li>
           </ul>
         </section>
       </div>

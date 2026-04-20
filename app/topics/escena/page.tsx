@@ -11,28 +11,28 @@ const ESCENA_IMAGES = [
     src: "/escena2.jpg", 
     alt: "Procesión",
     titulo: "Procesión",
-    descripcion: "Primera parte del baile: Ritual, origen, conexión y espiritualidad.",
+    descripcion: "Primer momento : Ritual, origen, conexión y espiritualidad.",
     conceptos: "Ritual • Origen • Espiritualidad"
   },
   { 
     src: "/escena1.jpg", 
     alt: "Cintas",
     titulo: "Cintas",
-    descripcion: "Segunda parte del baile: Tensión, diálogo, equilibrio y relación.",
+    descripcion: "Segundo momento : Tensión, diálogo, equilibrio y relación.",
     conceptos: "Tensión • Diálogo • Equilibrio"
   },
   { 
     src: "/escena3.jpg", 
     alt: "Hilada",
     titulo: "Hilada",
-    descripcion: "Tercera parte del baile: Construcción, unión, compromiso y futuro.",
+    descripcion: "Tercer momento : Construcción, unión, compromiso y futuro.",
     conceptos: "Construcción • Unión • Futuro"
   },
   { 
     src: "/escena4.jpg", 
     alt: "Merengue Carranguero",
     titulo: "Fiesta",
-    descripcion: "Cuarta parte del baile: Fiesta, comunidad, tradición y celebración.",
+    descripcion: "Cuarto momento : Fiesta, comunidad, tradición y celebración.",
     conceptos: "Fiesta • Comunidad • Celebración"
   },
 ];

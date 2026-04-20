@@ -1,15 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion"; // Corregido a framer-motion
+import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-
-// Configurado para solo 2 imágenes
-const ESPECIFICOS_IMAGES = [
-  { src: "/especifico1.jpg", alt: "Identificación Cultural" },
-  { src: "/especifico2.jpg", alt: "Examen Pedagógico" },
-];
 
 const OBJETIVOS = [
   "Identificar las implicaciones culturales de la activación patrimonial del torbellino en el contexto universitario, considerando su aporte a la visibilización del patrimonio cultural inmaterial.",
@@ -19,10 +12,6 @@ const OBJETIVOS = [
 
 export default function ObjetivosEspecificosPage() {
   const router = useRouter();
-  const [imgIndex, setImgIndex] = useState(0);
-
-  const nextImg = () => setImgIndex((prev) => (prev + 1) % ESPECIFICOS_IMAGES.length);
-  const prevImg = () => setImgIndex((prev) => (prev - 1 + ESPECIFICOS_IMAGES.length) % ESPECIFICOS_IMAGES.length);
 
   return (
     <main className="min-h-screen bg-[#F3F4F6] flex flex-col font-sans">
@@ -40,13 +29,18 @@ export default function ObjetivosEspecificosPage() {
           Contenido del Proyecto
         </h2>
 
+        {/* Botón Volver con logo UMNG */}
         <button 
           onClick={() => router.push("/topics")}
           className="bg-[#1D2757] text-white px-6 py-2 rounded-md font-bold text-xs hover:bg-[#C5A059] transition-all flex items-center gap-2 uppercase tracking-widest shadow-sm"
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-            <path d="m15 18-6-6 6-6"/>
-          </svg>
+          <Image 
+            src="/umng-logo.png" 
+            alt="Inicio" 
+            width={18} 
+            height={18} 
+            className="invert brightness-0"
+          />
           Volver
         </button>
       </nav>
@@ -54,13 +48,20 @@ export default function ObjetivosEspecificosPage() {
       {/* CUERPO CENTRAL */}
       <div className="flex-1 flex flex-col md:flex-row p-6 md:p-12 gap-8 items-center justify-center">
         
-        {/* Lado Izquierdo: Icono */}
+        {/* Lado Izquierdo: Reemplazo de ícono por Logo UMNG */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="w-48 h-48 bg-white rounded-[2rem] border-2 border-gray-100 flex items-center justify-center text-7xl shadow-xl relative"
+          className="w-48 h-48 bg-white rounded-[2rem] border-2 border-gray-100 flex items-center justify-center shadow-xl relative"
         >
-          <span className="relative z-10">📌</span>
+          <div className="relative w-32 h-32">
+            <Image 
+              src="/umng-logo.png" 
+              alt="Logo UMNG" 
+              fill 
+              className="object-contain" 
+            />
+          </div>
           <div className="absolute top-0 right-0 w-10 h-10 bg-[#C5A059] rounded-tr-[2rem] rounded-bl-full opacity-80" />
         </motion.div>
 
@@ -79,7 +80,7 @@ export default function ObjetivosEspecificosPage() {
 
           <div className="flex flex-col lg:flex-row min-h-[450px]">
             {/* Lista de Objetivos */}
-            <div className="flex-1 p-8 border-r border-gray-100 bg-white">
+            <div className="flex-[1.3] p-8 border-r border-gray-100 bg-white">
               <div className="space-y-6">
                 {OBJETIVOS.map((obj, index) => (
                   <motion.div 
@@ -100,39 +101,19 @@ export default function ObjetivosEspecificosPage() {
               </div>
             </div>
 
-            {/* Carrusel de Imágenes (Solo 2 fotos) */}
+            {/* Imagen Única: obj2.jpg */}
             <div className="flex-1 p-8 bg-[#F8F9FA] flex flex-col items-center justify-center">
-              <div className="relative w-full aspect-video bg-gray-100 rounded-xl overflow-hidden shadow-lg border-4 border-white">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={imgIndex}
-                    initial={{ opacity: 0, x: 10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -10 }}
-                    transition={{ duration: 0.3 }}
-                    className="w-full h-full relative"
-                  >
-                    <Image 
-                      src={ESPECIFICOS_IMAGES[imgIndex].src}
-                      alt={ESPECIFICOS_IMAGES[imgIndex].alt}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      unoptimized
-                    />
-                  </motion.div>
-                </AnimatePresence>
-
-                {/* Botones de control */}
-                <button onClick={prevImg} className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/90 p-2 rounded-full text-[#1D2757] hover:bg-[#C5A059] transition-all shadow-md z-10">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-                </button>
-                <button onClick={nextImg} className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/90 p-2 rounded-full text-[#1D2757] hover:bg-[#C5A059] transition-all shadow-md z-10">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                </button>
+              <div className="relative w-full aspect-square bg-white rounded-xl overflow-hidden shadow-lg border-2 border-gray-100">
+                <Image 
+                  src="/obj2.jpg"
+                  alt="Objetivos Específicos Heritmo"
+                  fill
+                  className="object-contain p-6"
+                  priority
+                />
               </div>
               <p className="mt-4 text-[9px] text-gray-400 font-bold uppercase tracking-[0.3em]">
-                Fotografía {imgIndex + 1} de {ESPECIFICOS_IMAGES.length}
+                Visualización de Objetivos • Fase Creativa
               </p>
             </div>
           </div>

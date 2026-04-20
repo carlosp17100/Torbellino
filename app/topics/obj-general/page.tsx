@@ -1,22 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-// Imágenes en /public: obj1.jpg y obj2.jpg
-const OBJETIVO_IMAGES = [
-  { src: "/obj1.jpg", alt: "Objetivo General 1" },
-  { src: "/obj2.jpg", alt: "Objetivo General 2" },
-];
-
 export default function ObjetivoGeneralPage() {
   const router = useRouter();
-  const [imgIndex, setImgIndex] = useState(0);
-
-  const nextImg = () => setImgIndex((prev) => (prev + 1) % OBJETIVO_IMAGES.length);
-  const prevImg = () => setImgIndex((prev) => (prev - 1 + OBJETIVO_IMAGES.length) % OBJETIVO_IMAGES.length);
 
   return (
     <main className="min-h-screen bg-[#F3F4F6] flex flex-col font-sans">
@@ -34,13 +23,18 @@ export default function ObjetivoGeneralPage() {
           Contenido del Proyecto
         </h2>
 
+        {/* Botón Volver con logo UMNG */}
         <button 
           onClick={() => router.push("/topics")}
           className="bg-[#1D2757] text-white px-6 py-2 rounded-md font-bold text-xs hover:bg-[#C5A059] transition-all flex items-center gap-2 uppercase tracking-widest shadow-sm"
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-            <path d="m15 18-6-6 6-6"/>
-          </svg>
+          <Image 
+            src="/umng-logo.png" 
+            alt="Inicio" 
+            width={18} 
+            height={18} 
+            className="invert brightness-0"
+          />
           Volver
         </button>
       </nav>
@@ -48,20 +42,30 @@ export default function ObjetivoGeneralPage() {
       {/* CUERPO CENTRAL */}
       <div className="flex-1 flex flex-col md:flex-row p-6 md:p-12 gap-12 items-center justify-center">
         
+        {/* REEMPLAZO: Ícono lateral por logo UMNG */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="w-64 h-64 bg-white rounded-[2rem] border-2 border-gray-100 flex items-center justify-center text-8xl shadow-xl relative"
+          className="w-64 h-64 bg-white rounded-[2rem] border-2 border-gray-100 flex items-center justify-center shadow-xl relative"
         >
-          <span className="relative z-10">🎯</span>
+          <div className="relative w-40 h-40">
+            <Image 
+              src="/umng-logo.png" 
+              alt="Logo UMNG Lateral" 
+              fill 
+              className="object-contain" 
+            />
+          </div>
           <div className="absolute top-0 right-0 w-12 h-12 bg-[#C5A059] rounded-tr-[2rem] rounded-bl-full opacity-80" />
         </motion.div>
 
+        {/* Tarjeta de Contenido */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="flex-1 w-full max-w-5xl bg-white rounded-[1.5rem] shadow-2xl border border-gray-200 overflow-hidden flex flex-col"
         >
+          {/* Cabecera de la tarjeta */}
           <div className="bg-[#1D2757] p-5 flex justify-between items-center">
             <h3 className="text-white text-2xl font-bold uppercase tracking-widest">Objetivo General</h3>
             <span className="bg-[#C5A059] text-[#1D2757] px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-tighter">
@@ -70,6 +74,7 @@ export default function ObjetivoGeneralPage() {
           </div>
 
           <div className="flex flex-col lg:flex-row min-h-[400px]">
+            {/* Sección de Texto */}
             <div className="flex-1 p-10 border-r border-gray-100 flex flex-col justify-center">
               <p className="text-[#1D2757] text-xl md:text-2xl leading-relaxed text-justify font-medium">
                 <span className="text-6xl font-bold float-left mr-3 leading-none text-[#C5A059]">A</span>
@@ -77,37 +82,20 @@ export default function ObjetivoGeneralPage() {
               </p>
             </div>
 
+            {/* REEMPLAZO: Imagen única de Heritmo (Sin carrusel) */}
             <div className="flex-1 p-8 bg-[#F8F9FA] flex flex-col items-center justify-center">
-              <div className="relative w-full aspect-video bg-gray-100 rounded-xl overflow-hidden shadow-lg border-4 border-white">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={imgIndex}
-                    initial={{ opacity: 0, x: 10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -10 }}
-                    transition={{ duration: 0.3 }}
-                    className="w-full h-full relative"
-                  >
-                    <Image 
-                      src={OBJETIVO_IMAGES[imgIndex].src}
-                      alt={OBJETIVO_IMAGES[imgIndex].alt}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      unoptimized
-                    />
-                  </motion.div>
-                </AnimatePresence>
-
-                <button onClick={prevImg} className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/90 p-2 rounded-full text-[#1D2757] hover:bg-[#C5A059] transition-all shadow-md z-10">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-                </button>
-                <button onClick={nextImg} className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/90 p-2 rounded-full text-[#1D2757] hover:bg-[#C5A059] transition-all shadow-md z-10">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                </button>
+              <div className="relative w-full aspect-square bg-white rounded-xl overflow-hidden shadow-lg border-2 border-gray-100">
+                <Image 
+                  src="/obj1.jpg"
+                  alt="Logo Heritmo"
+                  fill
+                  className="object-contain p-6" // El padding asegura que el logo circular no toque los bordes
+                  priority
+                />
               </div>
+              
               <p className="mt-4 text-[9px] text-gray-400 font-bold uppercase tracking-[0.3em]">
-                Imagen {imgIndex + 1} de {OBJETIVO_IMAGES.length}
+                Identidad Visual • Heritmo
               </p>
             </div>
           </div>
