@@ -42,7 +42,7 @@ export default function Home() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5, duration: 0.8 }}
       >
-        EL TORBELLINO
+         TORBELLINO
       </motion.h1>
 
       {/* Línea dorada basada en el color del escudo */}
@@ -60,7 +60,7 @@ export default function Home() {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}
       >
-        IDENTIDAD Y MOVIMIENTO
+        AMOR QUE SE TEJE
       </motion.p>
 
       {/* Botón de navegación */}
