@@ -215,7 +215,7 @@ export default function ContextoPage() {
         <div className="max-w-7xl mx-auto flex items-center justify-center gap-6">
           <div className="hidden md:block h-[1px] flex-1 bg-gradient-to-r from-transparent to-[#C5A059]/50" />
           <p className="text-[#C5A059] text-[8px] md:text-[10px] font-bold tracking-[0.3em] md:tracking-[0.5em] uppercase text-center">
-            Identidad y Movimiento • Proyecto UMNG
+             • Proyecto UMNG
           </p>
           <div className="hidden md:block h-[1px] flex-1 bg-gradient-to-l from-transparent to-[#C5A059]/50" />
         </div>

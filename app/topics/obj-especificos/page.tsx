@@ -30,17 +30,14 @@ export default function ObjetivosEspecificosPage() {
         </h2>
 
         {/* Botón Volver con logo UMNG */}
+ 
         <button 
           onClick={() => router.push("/topics")}
           className="bg-[#1D2757] text-white px-6 py-2 rounded-md font-bold text-xs hover:bg-[#C5A059] transition-all flex items-center gap-2 uppercase tracking-widest shadow-sm"
         >
-          <Image 
-            src="/umng-logo.png" 
-            alt="Inicio" 
-            width={18} 
-            height={18} 
-            className="invert brightness-0"
-          />
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m15 18-6-6 6-6"/>
+          </svg>
           Volver
         </button>
       </nav>
@@ -123,7 +120,7 @@ export default function ObjetivosEspecificosPage() {
       <footer className="w-full bg-[#1D2757] p-4 border-t border-[#C5A059]">
         <div className="max-w-7xl mx-auto text-center">
           <p className="text-[#C5A059] text-[10px] font-bold tracking-[0.5em] uppercase">
-            Identidad y Movimiento • Proyecto UMNG
+            • Proyecto UMNG
           </p>
         </div>
       </footer>

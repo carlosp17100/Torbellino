@@ -9,7 +9,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#f2f2f2] flex flex-col items-center justify-center text-center px-6">
-      {/* Logo UMNG con corrección de contraste */}
+      {/* LOGO UMNG */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -25,7 +25,7 @@ export default function Home() {
         />
       </motion.div>
 
-      {/* Nombre Universidad */}
+      {/*  University tittle */}
       <motion.p
         className="tracking-[0.4em] text-sm text-[#1e2a4a] mb-10 font-medium"
         initial={{ opacity: 0 }}
@@ -35,7 +35,7 @@ export default function Home() {
         UNIVERSIDAD MILITAR <br /> NUEVA GRANADA
       </motion.p>
 
-      {/* Título Principal */}
+      {/* Tittle */}
       <motion.h1
         className="text-6xl md:text-8xl font-serif font-bold text-[#111827] mb-6 tracking-tight"
         initial={{ opacity: 0, y: 40 }}
@@ -45,7 +45,7 @@ export default function Home() {
          TORBELLINO
       </motion.h1>
 
-      {/* Línea dorada basada en el color del escudo */}
+      {/* Line */}
       <motion.div
         className="w-24 h-[3px] bg-[#c9a227] mb-6 mx-auto"
         initial={{ width: 0 }}
@@ -53,7 +53,7 @@ export default function Home() {
         transition={{ delay: 1 }}
       />
 
-      {/* Subtítulo */}
+      {/* Subtitle */}
       <motion.p
         className="tracking-[0.4em] text-sm text-gray-500 mb-12"
         initial={{ opacity: 0 }}
@@ -63,7 +63,7 @@ export default function Home() {
         AMOR QUE SE TEJE
       </motion.p>
 
-      {/* Botón de navegación */}
+      {/* Button navigation */}
       <motion.button
         onClick={() => router.push("/topics")}
         className="px-10 py-3 border-2 border-[#1e2a4a] text-[#1e2a4a] rounded-full text-sm tracking-[0.3em] uppercase font-semibold hover:bg-[#1e2a4a] hover:text-white transition-all duration-300 shadow-sm"

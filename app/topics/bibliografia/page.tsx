@@ -169,15 +169,11 @@ export default function BibliografiaPage() {
       </div>
 
       {/* FOOTER INSTITUCIONAL */}
-      <footer className="w-full bg-[#1D2757] py-8 px-6 mt-12">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="text-[#C5A059] text-[8px] md:text-[10px] font-bold tracking-[0.3em] uppercase text-center md:text-left">
-           Identidad y Movimiento • Proyecto UMNG
-          </p>
-          <p className="text-white/40 text-[8px] md:text-[10px] font-medium uppercase tracking-[0.1em]">
-            © 2026 Universidad Militar Nueva Granada
-          </p>
-        </div>
+
+      <footer className="w-full bg-[#1D2757] p-6 border-t border-[#C5A059] mt-20">
+        <p className="text-[#C5A059] text-[10px] font-bold tracking-[0.5em] uppercase text-center">
+         • Proyecto UMNG
+        </p>
       </footer>
     </main>
   );

@@ -78,19 +78,28 @@ export default function EvolucionVestuario() {
 
   return (
     <main className="min-h-screen bg-white flex flex-col font-sans relative overflow-x-hidden">
-      {/* NAVEGACIÓN */}
-      <nav className="w-full p-4 md:px-12 md:py-8 flex justify-between items-center bg-white border-b border-gray-100 sticky top-0 z-50">
-        <div className="flex items-center gap-3 md:gap-4 cursor-pointer" onClick={() => router.push("/")}>
-          <Image src="/umng-logo.png" alt="UMNG" width={40} height={40} className="md:w-[50px] md:height-[50px]" />
-          <span className="text-[#1D2757] font-bold text-[10px] sm:text-sm uppercase leading-tight border-l-2 pl-3 md:pl-4 border-gray-200">
-            Universidad Militar <br /> Nueva Granada
-          </span>
-        </div>
+          {/* NAVEGACIÓN */}
+          <nav className="w-full p-6 flex justify-between items-center z-50 bg-white shadow-sm border-b">
+            <div className="flex items-center gap-4 cursor-pointer" onClick={() => router.push("/")}>
+              <div className="relative w-10 h-10 md:w-12 md:h-12">
+                <Image src="/umng-logo.png" alt="UMNG" fill className="object-contain" priority />
+              </div>
+              <span className="text-[#1D2757] font-bold text-[10px] md:text-xs tracking-tighter uppercase leading-tight">
+                Universidad Militar <br /> Nueva Granada
+              </span>
+            </div>
+    
+            <h2 className="hidden md:block text-[#1D2757] font-black text-xl tracking-[0.2em] uppercase">
+              VESTUARIO
+            </h2>
 
-        <button
+        <button 
           onClick={() => router.push("/topics")}
-          className="bg-[#1D2757] text-white px-6 md:px-10 py-2.5 md:py-3.5 rounded-full font-black text-[10px] md:text-sm uppercase hover:bg-[#C5A059] transition-all shadow-md active:scale-95"
+          className="bg-[#1D2757] text-white px-6 py-2 rounded-md font-bold text-xs hover:bg-[#C5A059] transition-all flex items-center gap-2 uppercase tracking-widest shadow-sm"
         >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m15 18-6-6 6-6"/>
+          </svg>
           Volver
         </button>
       </nav>

@@ -5,8 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-// 1. CAMBIO CLAVE: Nombres exactos de tus archivos en /public
-// Si tus archivos NO tienen extensión .jpg (ej. son .png), cambia el final abajo.
 const PROBLEMA_IMAGES = [
   { src: "/problema1.jpg", alt: "Análisis Problema 1" },
   { src: "/problema2.jpg", alt: "Análisis Problema 2" },
@@ -33,9 +31,10 @@ export default function PreguntaProblemaPage() {
         </div>
 
         <h2 className="hidden md:block text-[#1D2757] font-bold text-xl tracking-[0.2em] uppercase">
-          Contenido del Proyecto
+          Pregunta
         </h2>
 
+        {/* Botón Volver con logo */}
         <button 
           onClick={() => router.push("/topics")}
           className="bg-[#1D2757] text-white px-6 py-2 rounded-md font-bold text-xs hover:bg-[#C5A059] transition-all flex items-center gap-2 uppercase tracking-widest shadow-sm"
@@ -121,7 +120,7 @@ export default function PreguntaProblemaPage() {
       <footer className="w-full bg-[#1D2757] p-4 border-t border-[#C5A059]">
         <div className="max-w-7xl mx-auto flex items-center justify-center gap-6">
           <p className="text-[#C5A059] text-[10px] font-bold tracking-[0.5em] uppercase whitespace-nowrap">
-            Identidad y Movimiento • Proyecto UMNG
+           • Proyecto UMNG
           </p>
         </div>
       </footer>

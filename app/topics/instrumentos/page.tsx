@@ -88,26 +88,30 @@ export default function SoporteInstrumental() {
   return (
     <main className="min-h-screen bg-[#F9FAFB] flex flex-col font-sans relative overflow-x-hidden">
       
-      {/* NAVEGACIÓN RESPONSIVE */}
-      <nav className="w-full px-6 py-4 md:px-12 md:py-6 flex justify-between items-center bg-white border-b sticky top-0 z-50 shadow-sm">
-        <div className="flex items-center gap-3 cursor-pointer" onClick={() => router.push("/")}>
-          <Image src="/umng-logo.png" alt="UMNG" width={40} height={40} className="w-8 h-8 md:w-10 md:h-10" />
-          <span className="hidden xs:block text-[#1D2757] font-bold text-[10px] md:text-xs uppercase leading-tight border-l pl-3">
+      {/* NAVEGACIÓN */}
+      <nav className="w-full p-6 flex justify-between items-center z-50 bg-white shadow-sm border-b">
+        <div className="flex items-center gap-4 cursor-pointer" onClick={() => router.push("/")}>
+          <Image src="/umng-logo.png" alt="UMNG" width={50} height={50} priority />
+          <span className="text-[#1D2757] font-bold text-xs tracking-tighter uppercase leading-tight">
             Universidad Militar <br /> Nueva Granada
           </span>
         </div>
-        
-        <h2 className="text-[#1D2757] font-black text-[10px] md:text-sm lg:text-lg uppercase tracking-[0.2em]">
-            Soporte Instrumental
+
+        <h2 className="hidden md:block text-[#1D2757] font-bold text-xl tracking-[0.2em] uppercase">
+          Soporte Instrumental
         </h2>
 
         <button 
           onClick={() => router.push("/topics")}
-          className="bg-[#1D2757] text-white px-4 py-2 md:px-8 md:py-2.5 rounded-lg font-bold text-[10px] md:text-xs uppercase hover:bg-[#C5A059] transition-all flex items-center gap-2"
+          className="bg-[#1D2757] text-white px-6 py-2 rounded-md font-bold text-xs hover:bg-[#C5A059] transition-all flex items-center gap-2 uppercase tracking-widest shadow-sm"
         >
-          <X size={14} className="hidden sm:block" /> Volver
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m15 18-6-6 6-6"/>
+          </svg>
+          Volver
         </button>
       </nav>
+      
 
       {/* GRID OPTIMIZADO: 1 col móvil, 2 col tablet, 3 col laptop, 4 col desktop XL */}
       <section className="max-w-[1440px] mx-auto w-full px-6 py-10 md:py-16">

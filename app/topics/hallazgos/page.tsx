@@ -49,8 +49,11 @@ export default function HallazgosPage() {
         </h2>
         <button 
           onClick={() => router.push("/topics")}
-          className="bg-[#1D2757] text-white px-6 py-2 rounded-md font-bold text-xs hover:bg-[#C5A059] transition-all uppercase tracking-widest shadow-sm"
+          className="bg-[#1D2757] text-white px-6 py-2 rounded-md font-bold text-xs hover:bg-[#C5A059] transition-all flex items-center gap-2 uppercase tracking-widest shadow-sm"
         >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m15 18-6-6 6-6"/>
+          </svg>
           Volver
         </button>
       </nav>
@@ -151,7 +154,7 @@ export default function HallazgosPage() {
 
       <footer className="w-full bg-[#1D2757] p-6 border-t border-[#C5A059] mt-20">
         <p className="text-[#C5A059] text-[10px] font-bold tracking-[0.5em] uppercase text-center">
-          Identidad y Movimiento • Investigación UMNG
+         • Proyecto UMNG
         </p>
       </footer>
     </main>

@@ -20,7 +20,7 @@ export default function JustificacionPage() {
         </div>
 
         <h2 className="hidden md:block text-[#1D2757] font-bold text-xl tracking-[0.2em] uppercase">
-          Contenido del Proyecto
+          Justificación
         </h2>
 
         <button 
@@ -101,7 +101,7 @@ export default function JustificacionPage() {
         <div className="max-w-7xl mx-auto flex items-center justify-center gap-6">
           <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-[#C5A059]/50" />
           <p className="text-[#C5A059] text-[10px] font-bold tracking-[0.5em] uppercase whitespace-nowrap">
-            Identidad y Movimiento • Proyecto UMNG
+           • Proyecto UMNG
           </p>
           <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-[#C5A059]/50" />
         </div>
