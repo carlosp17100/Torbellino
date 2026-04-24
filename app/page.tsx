@@ -8,10 +8,10 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    // bg-white garantiza el fondo blanco puro. flex-col e items-center centran todo.
+    // Fondo blanco puro y estructura centrada
     <main className="relative min-h-screen bg-white flex flex-col items-center justify-center px-6 overflow-hidden">
       
-      {/* QR CODE - Posicionado absolutamente para no desplazar el contenido central */}
+      {/* QR CODE - Tamaño extra grande */}
       <motion.div
         initial={{ opacity: 0, x: 40 }}
         animate={{ opacity: 1, x: 0 }}
@@ -22,22 +22,23 @@ export default function Home() {
           <Image
             src="/qr.png"
             alt="QR Code"
-            width={260} // Tamaño agrandado para alta visibilidad
+            width={260}
             height={260}
             className="opacity-100"
           />
         </div>
       </motion.div>
 
-      {/* CONTENEDOR CENTRAL - Encapsula todo para asegurar alineación vertical perfecta */}
+      {/* CONTENEDOR CENTRAL */}
       <div className="flex flex-col items-center w-full max-w-4xl z-20">
         
-        {/* LOGO UMNG */}
+        {/* LOGO UMNG - Movido a la derecha según la indicación del círculo azul */}
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="mb-8"
+          // translate-x-16 empuja el logo a la derecha. Ajusta el número si necesitas más o menos.
+          className="mb-8 translate-x-2" 
         >
           <div className="relative w-[160px] h-[160px] flex justify-center items-center">
             <Image
@@ -51,7 +52,7 @@ export default function Home() {
           </div>
         </motion.div>
 
-        {/* NOMBRE UNIVERSIDAD - Con indent para compensar el tracking */}
+        {/* NOMBRE UNIVERSIDAD */}
         <motion.p
           className="tracking-[0.4em] indent-[0.4em] text-sm text-[#1e2a4a] mb-10 font-medium uppercase leading-relaxed text-center"
           initial={{ opacity: 0 }}
@@ -61,7 +62,7 @@ export default function Home() {
           UNIVERSIDAD MILITAR <br /> NUEVA GRANADA
         </motion.p>
 
-        {/* TÍTULO PRINCIPAL - TORBELLINO */}
+        {/* TÍTULO PRINCIPAL */}
         <motion.h1
           className="text-6xl md:text-8xl font-serif font-bold text-[#111827] mb-6 tracking-tight text-center"
           initial={{ opacity: 0, y: 40 }}
@@ -89,7 +90,7 @@ export default function Home() {
           AMOR QUE SE TEJE
         </motion.p>
 
-        {/* BOTÓN EXPLORA MÁS - Centrado corregido ópticamente */}
+        {/* BOTÓN EXPLORA MÁS */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -98,7 +99,6 @@ export default function Home() {
         >
           <button
             onClick={() => router.push("/topics")}
-            // 'indent' compensa el espacio extra de la última letra para un centrado real
             className="px-14 py-4 border-2 border-[#1e2a4a] text-[#1e2a4a] rounded-full text-xs tracking-[0.3em] indent-[0.3em] uppercase font-bold hover:bg-[#1e2a4a] hover:text-white transition-all duration-300 shadow-sm"
           >
             Explora Más
