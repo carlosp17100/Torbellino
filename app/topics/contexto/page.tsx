@@ -95,7 +95,7 @@ export default function ContextoPage() {
       </nav>
 
       {/* CONTENIDO PRINCIPAL */}
-      <div className="flex-1 flex flex-col p-6 md:p-12 lg:p-20">
+      <div className="flex-1 flex flex-col p-6 md:p-12 lg:p-20 pb-10">
         
         <motion.header 
           initial={{ opacity: 0, y: -20 }}
@@ -115,7 +115,7 @@ export default function ContextoPage() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto w-full"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto w-full mb-16"
         >
           {CONTEXTO_IMAGES.map((img) => (
             <motion.div
@@ -147,9 +147,24 @@ export default function ContextoPage() {
             </motion.div>
           ))}
         </motion.div>
+
+        {/* BOTÓN SIGUIENTE PARTE */}
+        <div className="w-full flex justify-center z-20 mt-4">
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => router.push("/topics/melodia")}
+            className="bg-[#1D2757] hover:bg-[#C5A059] text-white px-8 py-3 md:px-12 md:py-4 rounded-xl font-bold text-[10px] md:text-xs uppercase tracking-[0.2em] transition-all flex items-center gap-4 shadow-lg group"
+          >
+            Siguiente Parte
+            <svg className="group-hover:translate-x-1 transition-transform" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+              <path d="m9 18 6-6-6-6"/>
+            </svg>
+          </motion.button>
+        </div>
       </div>
 
-      {/* MODAL LIGHTBOX CORREGIDO */}
+      {/* MODAL LIGHTBOX */}
       <AnimatePresence>
         {selectedImage && (
           <motion.div
@@ -159,7 +174,6 @@ export default function ContextoPage() {
             className="fixed inset-0 bg-[#0A0F1E]/95 z-[100] flex items-center justify-center p-4 md:p-8 backdrop-blur-md"
             onClick={() => setSelectedImage(null)}
           >
-            {/* Botón de Cerrar */}
             <button 
               className="absolute top-6 right-6 z-[110] bg-white/10 p-2 rounded-full text-white hover:text-[#C5A059] transition-colors"
               onClick={() => setSelectedImage(null)}
@@ -167,7 +181,6 @@ export default function ContextoPage() {
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
             </button>
 
-            {/* Contenedor del Modal con Scroll */}
             <motion.div
               initial={{ scale: 0.9, opacity: 0, y: 30 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -175,7 +188,6 @@ export default function ContextoPage() {
               className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto flex flex-col items-center custom-scrollbar bg-white rounded-[2.5rem] shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Imagen en el Modal */}
               <div className="relative w-full h-[35vh] md:h-[55vh] shrink-0 bg-gray-100">
                 <Image 
                   src={selectedImage.src}
@@ -187,7 +199,6 @@ export default function ContextoPage() {
                 />
               </div>
               
-              {/* Texto Descriptivo */}
               <div className="p-8 md:p-12 text-center w-full">
                 <h4 className="text-[#1D2757] text-2xl md:text-4xl font-black uppercase tracking-tight mb-6">
                   {selectedImage.alt}
@@ -215,7 +226,7 @@ export default function ContextoPage() {
         <div className="max-w-7xl mx-auto flex items-center justify-center gap-6">
           <div className="hidden md:block h-[1px] flex-1 bg-gradient-to-r from-transparent to-[#C5A059]/50" />
           <p className="text-[#C5A059] text-[8px] md:text-[10px] font-bold tracking-[0.3em] md:tracking-[0.5em] uppercase text-center">
-             • Proyecto UMNG
+              • Proyecto UMNG
           </p>
           <div className="hidden md:block h-[1px] flex-1 bg-gradient-to-l from-transparent to-[#C5A059]/50" />
         </div>

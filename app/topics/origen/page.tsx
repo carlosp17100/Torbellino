@@ -92,7 +92,7 @@ export default function TerritorioPage() {
       </section>
 
       {/* GRID DE TARJETAS */}
-      <section className="p-6 md:p-12 max-w-7xl mx-auto w-full mb-20">
+      <section className="p-6 md:p-12 max-w-7xl mx-auto w-full mb-10">
         <motion.div variants={containerVariants} initial="hidden" whileInView="visible" className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-10">
           {TERRITORIOS_DATA.map((card) => (
             <motion.div
@@ -121,7 +121,22 @@ export default function TerritorioPage() {
         </motion.div>
       </section>
 
-      {/* MODAL CORREGIDO */}
+      {/* BOTÓN SIGUIENTE PARTE */}
+      <div className="w-full flex justify-center pb-20 z-20">
+        <motion.button 
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => router.push("/topics/contexto")}
+          className="bg-[#1D2757] hover:bg-[#C5A059] text-white px-8 py-3 md:px-12 md:py-4 rounded-xl font-bold text-[10px] md:text-xs uppercase tracking-[0.2em] transition-all flex items-center gap-4 shadow-lg group"
+        >
+          Siguiente Parte
+          <svg className="group-hover:translate-x-1 transition-transform" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+            <path d="m9 18 6-6-6-6"/>
+          </svg>
+        </motion.button>
+      </div>
+
+      {/* MODAL */}
       <AnimatePresence>
         {selectedId && selectedItem && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
@@ -135,7 +150,6 @@ export default function TerritorioPage() {
               layoutId={`card-${selectedId}`}
               className="bg-white rounded-[2.5rem] overflow-hidden shadow-2xl flex flex-col w-full max-w-4xl max-h-[90vh] relative z-10"
             >
-              {/* Botón Cerrar */}
               <button 
                 onClick={() => setSelectedId(null)}
                 className="absolute top-4 right-4 z-30 bg-white text-[#1D2757] p-2 rounded-full shadow-lg hover:bg-gray-100 transition-all"
@@ -144,7 +158,6 @@ export default function TerritorioPage() {
               </button>
 
               <div className="flex flex-col md:flex-row overflow-y-auto">
-                {/* CONTENEDOR DE IMAGEN CORREGIDO */}
                 <div className="relative h-48 sm:h-64 md:h-auto md:w-1/2 bg-gray-100 shrink-0 overflow-hidden">
                   <img 
                     src={selectedItem.imagen} 
@@ -153,7 +166,6 @@ export default function TerritorioPage() {
                   />
                 </div>
 
-                {/* TEXTO */}
                 <div className="p-8 md:p-12 md:w-1/2 flex flex-col justify-center bg-white">
                   <p className="text-[#C5A059] text-xs font-bold uppercase mb-2 tracking-widest">{selectedItem.ubicacion}</p>
                   <h4 className="text-[#1D2757] font-black text-3xl md:text-5xl uppercase mb-6 leading-tight">
@@ -178,7 +190,7 @@ export default function TerritorioPage() {
       </AnimatePresence>
 
       <footer className="w-full bg-[#1D2757] py-10 text-center mt-auto">
-        <p className="text-[#C5A059] text-[9px] font-bold tracking-[0.4em] uppercase">Identidad y Movimiento • UMNG</p>
+        <p className="text-[#C5A059] text-[9px] font-bold tracking-[0.4em] uppercase"> • Proyecto  UMNG</p>
       </footer>
     </main>
   );

@@ -93,7 +93,7 @@ export default function HallazgosPage() {
           ))}
         </div>
 
-        {/* --- SEPARACIÓN AQUÍ (Margin Top) --- */}
+        {/* CONCLUSIÓN FINAL */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -101,7 +101,6 @@ export default function HallazgosPage() {
           transition={{ delay: 0.2 }}
           className="mt-20 md:mt-32 bg-[#1D2757] p-12 md:p-24 rounded-[4rem] text-center relative overflow-hidden shadow-[0_35px_60px_-15px_rgba(29,39,87,0.3)]"
         >
-          {/* Adorno visual de fondo */}
           <div className="absolute -top-24 -right-24 w-80 h-80 bg-[#C5A059]/10 rounded-full blur-3xl" />
           <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-white/5 rounded-full blur-3xl" />
           
@@ -114,6 +113,21 @@ export default function HallazgosPage() {
             <span className="text-[#C5A059] not-italic mt-4 block md:inline"> es materia viva para crear el futuro.”</span>
           </h4>
         </motion.div>
+
+        {/* BOTÓN SIGUIENTE PARTE */}
+        <div className="w-full flex justify-center mt-20 md:mt-32 z-20">
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => router.push("/topics/bibliografia")}
+            className="bg-[#1D2757] hover:bg-[#C5A059] text-white px-10 py-4 rounded-xl font-bold text-[10px] md:text-xs uppercase tracking-[0.2em] transition-all flex items-center gap-4 shadow-lg group"
+          >
+            Siguiente Parte
+            <svg className="group-hover:translate-x-1 transition-transform" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+              <path d="m9 18 6-6-6-6"/>
+            </svg>
+          </motion.button>
+        </div>
 
       </div>
 

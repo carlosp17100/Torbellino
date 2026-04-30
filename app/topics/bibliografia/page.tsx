@@ -57,7 +57,7 @@ export default function BibliografiaPage() {
   return (
     <main className="min-h-screen bg-[#F8FAFC] flex flex-col font-sans">
       
-      {/* NAVEGACIÓN INSTITUCIONAL (Consistente con tu estilo) */}
+      {/* NAVEGACIÓN INSTITUCIONAL */}
       <nav className="w-full p-4 md:px-12 md:py-6 flex justify-between items-center z-50 bg-white shadow-sm border-b sticky top-0">
         <div 
           className="flex items-center gap-2 md:gap-4 cursor-pointer shrink-0" 
@@ -103,7 +103,7 @@ export default function BibliografiaPage() {
           <div className="h-1.5 w-24 bg-[#C5A059] mx-auto rounded-full" />
         </motion.header>
 
-        {/* FILTROS INNOVADORES */}
+        {/* FILTROS */}
         <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-12">
           {categorias.map((cat) => (
             <button
@@ -125,7 +125,7 @@ export default function BibliografiaPage() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16"
         >
           {filteredData.map((ref) => (
             <motion.div
@@ -166,13 +166,27 @@ export default function BibliografiaPage() {
             </motion.div>
           ))}
         </motion.div>
+
+        {/* BOTÓN SIGUIENTE PARTE */}
+        <div className="w-full flex justify-center pb-12 z-20">
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => router.push("/topics/multimedia")}
+            className="bg-[#1D2757] hover:bg-[#C5A059] text-white px-10 py-4 rounded-xl font-bold text-[10px] md:text-xs uppercase tracking-[0.2em] transition-all flex items-center gap-4 shadow-lg group"
+          >
+            Siguiente Parte
+            <svg className="group-hover:translate-x-1 transition-transform" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+              <path d="m9 18 6-6-6-6"/>
+            </svg>
+          </motion.button>
+        </div>
+
       </div>
 
-      {/* FOOTER INSTITUCIONAL */}
-
-      <footer className="w-full bg-[#1D2757] p-6 border-t border-[#C5A059] mt-20">
+      <footer className="w-full bg-[#1D2757] p-6 border-t border-[#C5A059] mt-auto">
         <p className="text-[#C5A059] text-[10px] font-bold tracking-[0.5em] uppercase text-center">
-         • Proyecto UMNG
+          • Proyecto UMNG
         </p>
       </footer>
     </main>

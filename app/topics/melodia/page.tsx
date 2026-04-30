@@ -141,8 +141,6 @@ export default function MelodiaPage() {
       {/* CONTENIDO PRINCIPAL */}
       <div className="flex-1 flex flex-col p-6 md:p-12 lg:p-20 relative">
         
-        {/* LAS LÍNEAS NEGRAS HAN SIDO ELIMINADAS DE AQUÍ */}
-
         {/* TARJETAS DE CONCEPTO CLAVE */}
         <motion.div 
           variants={staggerContainer}
@@ -173,7 +171,7 @@ export default function MelodiaPage() {
         </motion.div>
 
         {/* SECCIÓN "VISUALIZER" */}
-        <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-10 items-center z-10">
+        <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-10 items-center z-10 mb-20">
           
           {/* LADO IZQUIERDO: Imagen Principal Interactiva */}
           <motion.div 
@@ -245,6 +243,21 @@ export default function MelodiaPage() {
           </div>
         </div>
 
+        {/* BOTÓN SIGUIENTE PARTE (ESTILO JUSTIFICACIÓN) */}
+        <div className="w-full flex justify-center z-20">
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => router.push("/topics/instrumentos")}
+            className="bg-[#1D2757] hover:bg-[#C5A059] text-white px-8 py-3 md:px-12 md:py-4 rounded-xl font-bold text-[10px] md:text-xs uppercase tracking-[0.2em] transition-all flex items-center gap-4 shadow-lg group"
+          >
+            Siguiente Parte
+            <svg className="group-hover:translate-x-1 transition-transform" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+              <path d="m9 18 6-6-6-6"/>
+            </svg>
+          </motion.button>
+        </div>
+
       </div>
 
       {/* MODAL LIGHTBOX / ZOOM */}
@@ -297,7 +310,7 @@ export default function MelodiaPage() {
       </AnimatePresence>
 
       {/* FOOTER */}
-      <footer className="w-full bg-[#1D2757] p-4 border-t border-[#C5A059] mt-20">
+      <footer className="w-full bg-[#1D2757] p-4 border-t border-[#C5A059]">
         <div className="max-w-7xl mx-auto flex items-center justify-center gap-6">
           <div className="hidden md:block h-[1px] flex-1 bg-gradient-to-r from-transparent to-[#C5A059]/50" />
           <p className="text-[#C5A059] text-[8px] md:text-[10px] font-bold tracking-[0.5em] uppercase text-center">

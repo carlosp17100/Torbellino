@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
@@ -84,13 +84,31 @@ export default function TecnicasPage() {
               </span>
             </motion.button>
           ))}
+
+          {/* BOTÓN SIGUIENTE PARTE (Debajo de Registro Audiovisual) */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="w-full flex justify-end mt-8"
+          >
+            <button 
+              onClick={() => router.push("/topics/escena")}
+              className="bg-[#1D2757] hover:bg-[#C5A059] text-white px-8 py-3 rounded-lg font-bold text-xs uppercase tracking-[0.2em] transition-all flex items-center gap-3 shadow-md group w-full md:w-auto justify-center md:justify-start"
+            >
+              Siguiente Parte
+              <svg className="group-hover:translate-x-1 transition-transform" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <path d="m9 18 6-6-6-6"/>
+              </svg>
+            </button>
+          </motion.div>
         </div>
 
       </div>
 
       <footer className="w-full bg-[#1D2757] p-4 border-t border-[#C5A059]">
         <p className="text-[#C5A059] text-[9px] font-bold tracking-[0.4em] uppercase text-center">
-          Proyecto Investigación-Creación • Universidad Militar Nueva Granada
+          • Proyecto UMNG
         </p>
       </footer>
     </main>

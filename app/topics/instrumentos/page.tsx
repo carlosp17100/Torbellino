@@ -15,7 +15,7 @@ interface Instrumento {
   imagen: string;
 }
 
-// 2. Datos constantes (Afuera del componente para evitar recreación)
+// 2. Datos constantes
 const LISTA_INSTRUMENTOS: Instrumento[] = [
   { id: "tiple", nombre: "El Tiple", tipo: "Base Armónica", descripcion: "Sostiene el pulso constante y la riqueza rítmica del torbellino.", imagen: "/instrumento1.jpg" },
   { id: "requinto", nombre: "El Requinto", tipo: "Melódico / Armónico", descripcion: "Encargado de las melodías principales y bordoneos vibrantes.", imagen: "/instrumento2.jpg" },
@@ -31,12 +31,10 @@ export default function SoporteInstrumental() {
   const router = useRouter();
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
-  // 3. OPTIMIZACIÓN: useMemo para el cálculo del instrumento seleccionado
   const selectedInstrumento = useMemo(() => 
     LISTA_INSTRUMENTOS.find(i => i.id === selectedId), 
   [selectedId]);
 
-  // 4. OPTIMIZACIÓN: useMemo para renderizar la lista de tarjetas
   const InstrumentCards = useMemo(() => {
     return LISTA_INSTRUMENTOS.map((inst) => (
       <motion.div
@@ -53,7 +51,6 @@ export default function SoporteInstrumental() {
             src={inst.imagen}
             alt={inst.nombre}
             fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover group-hover:scale-105 transition-transform duration-700"
             priority={inst.id === "tiple"} 
           />
@@ -71,11 +68,11 @@ export default function SoporteInstrumental() {
              <div className="bg-pink-50 p-3 rounded-2xl shrink-0">
                 <Music className="text-pink-500" size={20} />
              </div>
-             <div className="overflow-hidden">
-                <h4 className="text-[#1D2757] font-black uppercase text-sm sm:text-base md:text-lg leading-tight truncate">
+             <div>
+                <h4 className="text-[#1D2757] font-black uppercase text-sm sm:text-base md:text-lg leading-tight">
                   {inst.tipo}
                 </h4>
-                <p className="text-gray-500 text-xs sm:text-sm italic mt-1 line-clamp-2 md:line-clamp-none">
+                <p className="text-gray-500 text-xs sm:text-sm italic mt-1 line-clamp-2">
                   {inst.descripcion}
                 </p>
              </div>
@@ -113,24 +110,39 @@ export default function SoporteInstrumental() {
       </nav>
       
 
-      {/* GRID OPTIMIZADO: 1 col móvil, 2 col tablet, 3 col laptop, 4 col desktop XL */}
+      {/* GRID INSTRUMENTOS */}
       <section className="max-w-[1440px] mx-auto w-full px-6 py-10 md:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-10">
           {InstrumentCards}
         </div>
       </section>
 
+      {/* BOTÓN SIGUIENTE PARTE */}
+      <div className="w-full flex justify-center pb-20 z-20">
+        <motion.button 
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => router.push("/topics/vestuario")}
+          className="bg-[#1D2757] hover:bg-[#C5A059] text-white px-8 py-3 md:px-12 md:py-4 rounded-xl font-bold text-[10px] md:text-xs uppercase tracking-[0.2em] transition-all flex items-center gap-4 shadow-lg group"
+        >
+          Siguiente Parte
+          <svg className="group-hover:translate-x-1 transition-transform" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+            <path d="m9 18 6-6-6-6"/>
+          </svg>
+        </motion.button>
+      </div>
+
       {/* FOOTER */}
       <footer className="w-full bg-[#1D2757] py-8 px-6 mt-auto border-t border-[#C5A059]/30">
         <p className="text-[#C5A059] text-[9px] md:text-xs font-bold tracking-[0.3em] uppercase text-center">
-          Identidad y Movimiento • Proyecto UMNG • 2026
+          • Proyecto UMNG 
         </p>
       </footer>
 
-      {/* MODAL RESPONSIVE */}
+      {/* MODAL */}
       <AnimatePresence>
         {selectedId && selectedInstrumento && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-10">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -145,12 +157,12 @@ export default function SoporteInstrumental() {
             >
               <button 
                 onClick={() => setSelectedId(null)}
-                className="absolute top-4 right-4 md:top-8 md:right-8 z-20 bg-gray-100/80 backdrop-blur-md text-[#1D2757] p-2 md:p-3 rounded-full hover:bg-red-50 hover:text-red-500 transition-colors shadow-sm"
+                className="absolute top-4 right-4 md:top-8 md:right-8 z-20 bg-gray-100/80 backdrop-blur-md text-[#1D2757] p-2 md:p-3 rounded-full hover:bg-red-50 hover:text-red-500 transition-colors"
               >
                 <X size={20} />
               </button>
 
-              <div className="w-full md:w-1/2 relative h-64 sm:h-80 md:h-auto bg-gray-50">
+              <div className="w-full md:w-1/2 relative h-64 md:h-auto">
                 <Image
                   src={selectedInstrumento.imagen}
                   alt={selectedInstrumento.nombre}
@@ -159,14 +171,14 @@ export default function SoporteInstrumental() {
                 />
               </div>
 
-              <div className="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center bg-white overflow-y-auto">
+              <div className="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center bg-white">
                 <motion.h2 
                   layoutId={`title-${selectedId}`}
-                  className="text-[#1D2757] text-3xl md:text-5xl font-black uppercase italic mb-2 md:mb-4 leading-tight"
+                  className="text-[#1D2757] text-3xl md:text-5xl font-black uppercase italic mb-4"
                 >
                   {selectedInstrumento.nombre}
                 </motion.h2>
-                <span className="text-[#C5A059] font-bold uppercase tracking-widest text-xs md:text-sm mb-6 pb-2 border-b border-gray-100">
+                <span className="text-[#C5A059] font-bold uppercase tracking-widest text-xs md:text-sm mb-6 pb-2 border-b">
                     {selectedInstrumento.tipo}
                 </span>
                 
@@ -176,7 +188,7 @@ export default function SoporteInstrumental() {
 
                 <button 
                   onClick={() => setSelectedId(null)}
-                  className="bg-[#1D2757] text-white w-full md:w-fit px-12 py-4 rounded-full font-bold uppercase text-[10px] md:text-xs hover:bg-[#C5A059] transition-all shadow-lg active:scale-95"
+                  className="bg-[#1D2757] text-white w-full md:w-fit px-12 py-4 rounded-full font-bold uppercase text-[10px] md:text-xs hover:bg-[#C5A059] transition-all shadow-lg"
                 >
                   Regresar a Galería
                 </button>

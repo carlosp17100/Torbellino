@@ -9,63 +9,65 @@ const FASES = [
   {
     id: 0,
     titulo: "Introducción a las fases",
+    categoria: "Fundamentación",
     texto: (
       <div className="space-y-6">
-        <p className="text-lg md:text-xl font-bold text-[#1D2757] leading-relaxed">
-          El proyecto se enmarca en un enfoque cualitativo, específicamente bajo la modalidad de <span className="text-[#C5A059]">investigación-creación</span>.
+        <p className="text-lg md:text-xl font-medium text-[#1D2757] leading-snug">
+          El proyecto se enmarca en un enfoque cualitativo, específicamente bajo la modalidad de <span className="text-[#C5A059] font-bold">investigación-creación</span>.
         </p>
-        <div className="relative p-6 bg-[#F3F4F6] rounded-2xl border-l-8 border-[#C5A059] shadow-inner">
-          <p className="italic text-[#1D2757]/90 text-lg">
-            "Este enfoque parte de una idea central: la práctica artística no es solo un medio para crear algo bello, sino que es, en sí misma una forma legítima de producir conocimiento."
+        <div className="p-6 md:p-8 bg-[#F3F4F6] rounded-[2rem] shadow-inner border border-gray-100">
+          <p className="text-[#1D2757]/80 text-base md:text-lg font-medium leading-relaxed">
+            "Este enfoque parte de una idea central: la práctica artística es una forma legítima de producir conocimiento."
           </p>
-          <svg className="absolute -top-2 -right-2 text-[#C5A059]/20 w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M14.017 21L14.017 18C14.017 16.899 14.899 16 16 16L18 16L18 14L15 14C13.899 14 13 13.101 13 12L13 9C13 7.899 13.899 7 15 7L18 7C19.101 7 20 7.899 20 9L20 12C20 13.101 19.101 14 18 14L18 16C19.101 16 20 16.899 20 18L20 21L14.017 21ZM4 21L4 18C4 16.899 4.899 16 6 16L8 16L8 14L5 14C3.899 14 3 13.101 3 12L3 9C3 7.899 3.899 7 5 7L8 7C9.101 7 10 7.899 10 9L10 12C10 13.101 9.101 14 8 14L8 16C9.101 16 10 16.899 10 18L10 21L4 21Z" />
-          </svg>
         </div>
       </div>
     ),
-    img: "/introduccion.jpg", 
+    img: "/introduccion.png",
   },
   {
     id: 1,
     titulo: "Fase 1. Revisión y contextualización",
-    texto: <p>Revisión documental histórica, musical, coreográfica y sociocultural del torbellino, con análisis de registros audiovisuales y referentes académicos para fundamentar críticamente el proceso creativo.</p>,
+    categoria: "Metodología",
+    texto: <p className="text-lg md:text-xl font-medium text-[#1D2757]">Revisión documental histórica, musical, coreográfica y sociocultural del torbellino, con análisis de registros audiovisuales para fundamentar el proceso creativo.</p>,
     img: "/fase1.jpg",
   },
   {
     id: 2,
     titulo: "Fase 2. Laboratorios de investigación–creación",
-    texto: <p>Laboratorios prácticos con exploración corporal, improvisación, reconstrucción y experimentación dramatúrgica del torbellino, mediante observación participante, diálogo de saberes y reflexión colectiva sobre resignificación contemporánea.</p>,
+    categoria: "Metodología",
+    texto: (
+      <div className="space-y-4">
+        <p className="text-lg md:text-xl font-medium text-[#1D2757]">
+          Laboratorios prácticos con exploración corporal e improvisación del torbellino mediante diálogo de saberes.
+        </p>
+      </div>
+    ),
     img: "/fase2.jpg",
   },
   {
     id: 3,
     titulo: "Fase 3. Sistematización y creación escénica",
+    categoria: "Metodología",
     texto: (
-      <div className="space-y-5 text-left">
+      <div className="space-y-5 text-[#1D2757]">
         <section>
-          <p className="font-black text-[#1D2757] mb-1">3.1 Sistematización de hallazgos</p>
-          <ul className="pl-4 space-y-1">
+          <p className="text-lg font-black mb-1">3.1 Sistematización de hallazgos</p>
+          <ul className="pl-6 space-y-1 text-base md:text-lg">
             <li>• Registros Audiovisuales</li>
             <li>• Bitácoras reflexivas</li>
           </ul>
         </section>
-
         <section>
-          <p className="font-black text-[#1D2757] mb-1">3.2 Acompañmiento </p>
-          <ul className="pl-4 space-y-1">
+          <p className="text-lg font-black mb-1">3.2 Acompañamiento</p>
+          <ul className="pl-6 space-y-1 text-base md:text-lg">
             <li>• Orientación dramatúrgica</li>
-            <li>• Consolodicación conceptual </li>
-            <li>• Articulación de la propuesta escénica</li>
+            <li>• Consolidación conceptual</li>
           </ul>
         </section>
-
         <section>
-          <p className="font-black text-[#1D2757] mb-1">3.3 Creación escénica</p>
-          <ul className="pl-4 space-y-1">
-            <li>• Estructurar una propuesta escénica</li>
-            <li>• Dialoga con la tradición del torbellino</li>
-            <li>• Vinculado al contexto histórico y territorial</li>
+          <p className="text-lg font-black mb-1">3.3 Creación escénica</p>
+          <ul className="pl-6 space-y-1 text-base md:text-lg">
+            <li>• Propuesta escénica vinculada al territorio.</li>
           </ul>
         </section>
       </div>
@@ -77,133 +79,151 @@ const FASES = [
 export default function MetodologiaPage() {
   const router = useRouter();
   const [activeStep, setActiveStep] = useState(0);
+  const [isZoomed, setIsZoomed] = useState(false);
+
+  // Modificado para dirigir siempre a tecnicas
+  const handleNext = () => {
+    router.push("/topics/tecnicas");
+  };
 
   return (
-    <main className="min-h-screen bg-[#F3F4F6] flex flex-col font-sans text-[#1D2757]">
+    <main className="min-h-screen bg-[#F8FAFC] flex flex-col font-sans text-[#1D2757]">
       
-      {/* NAVEGACIÓN */}
-      <nav className="w-full p-6 flex justify-between items-center z-50 bg-white shadow-sm border-b">
+      <nav className="w-full p-4 md:px-12 flex justify-between items-center bg-white shadow-sm border-b border-gray-100 z-50">
         <div className="flex items-center gap-4 cursor-pointer" onClick={() => router.push("/")}>
-          <Image src="/umng-logo.png" alt="UMNG" width={50} height={50} priority />
-          <span className="text-[#1D2757] font-bold text-xs tracking-tighter uppercase leading-tight border-l pl-4 border-gray-200">
-            Universidad Militar <br /> Nueva Granada
-          </span>
+          <Image src="/umng-logo.png" alt="UMNG" width={45} height={45} priority />
+          <div className="border-l border-gray-200 pl-4">
+            <span className="text-[#1D2757] font-bold text-[10px] md:text-xs uppercase tracking-tighter block leading-tight">
+              Universidad Militar <br /> Nueva Granada
+            </span>
+          </div>
         </div>
-
-        <h2 className="hidden md:block text-[#1D2757] font-bold text-xl tracking-[0.2em] uppercase">
-          Diseño Metodológico
-        </h2>
-
-         <button 
+        <button 
           onClick={() => router.push("/topics")}
-          className="bg-[#1D2757] text-white px-6 py-2 rounded-md font-bold text-xs hover:bg-[#C5A059] transition-all flex items-center gap-2 uppercase tracking-widest shadow-sm"
+          className="bg-[#1D2757] text-white px-6 py-2 rounded-md font-bold text-[10px] uppercase tracking-widest hover:bg-[#C5A059] transition-all shadow-md"
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-            <path d="m15 18-6-6 6-6"/>
-          </svg>
           Volver
         </button>
       </nav>
 
-      {/* CUERPO CENTRAL */}
-      <div className="flex-1 flex flex-col p-6 md:p-12 items-center justify-center gap-8">
+      <div className="flex-1 flex flex-col py-8 px-4 md:px-12 items-center justify-center gap-8">
         
-        {/* Selector de Fases */}
         <div className="flex flex-wrap justify-center gap-3">
           {FASES.map((fase, index) => (
             <button
               key={fase.id}
               onClick={() => setActiveStep(index)}
-              className={`px-6 py-3 rounded-xl font-black text-[9px] md:text-[10px] uppercase tracking-[0.2em] transition-all border-2 ${
+              className={`px-8 py-3 rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] transition-all border-2 ${
                 activeStep === index 
                 ? "bg-[#1D2757] border-[#1D2757] text-white shadow-lg scale-105" 
-                : "bg-white border-gray-200 text-gray-400 hover:border-[#C5A059]"
+                : "bg-white border-transparent text-gray-400 hover:border-[#C5A059]/30"
               }`}
             >
-              {index === 0 ? "Introducción" : `Fase ${fase.id}`}
+              {index === 0 ? "Intro" : `Fase ${fase.id}`}
             </button>
           ))}
         </div>
 
-        {/* Card Contenedora */}
         <motion.div 
           key={activeStep}
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="w-full max-w-7xl bg-white rounded-[2.5rem] shadow-2xl border border-gray-100 overflow-hidden flex flex-col lg:flex-row min-h-[600px]"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="w-full max-w-[1300px] bg-white rounded-[2.5rem] shadow-[0_20px_50px_-12px_rgba(0,0,0,0.08)] border border-gray-50 overflow-hidden flex flex-col lg:flex-row min-h-[600px] md:min-h-[650px]"
         >
-          {/* Lado Texto */}
-          <div className="flex-1 p-10 lg:p-16 flex flex-col justify-center bg-white z-10">
-             <span className="text-[#C5A059] font-black text-xs uppercase tracking-[0.3em] mb-4 flex items-center gap-2">
-                <span className="w-10 h-[2px] bg-[#C5A059]" /> {activeStep === 0 ? "Fundamentación" : "Metodología"}
-             </span>
+          <div className="flex-1 p-8 md:p-16 lg:p-20 flex flex-col justify-center bg-white order-2 lg:order-1 relative">
+             <div className="absolute top-0 left-0 w-full h-1 lg:w-1.5 lg:h-full bg-[#C5A059]" />
+             <div className="flex items-center gap-4 mb-4">
+                <span className="text-[#C5A059] font-black text-[10px] uppercase tracking-[0.4em]">
+                  {FASES[activeStep].categoria}
+                </span>
+             </div>
              
-             <motion.h3 
-               initial={{ opacity: 0, y: -10 }}
-               animate={{ opacity: 1, y: 0 }}
-               className="text-[#1D2757] text-2xl md:text-4xl font-black uppercase mb-8 leading-tight"
-             >
+             <h3 className="text-[#1D2757] text-2xl md:text-5xl font-black uppercase mb-8 leading-[1.15] tracking-tight">
                {FASES[activeStep].titulo}
-             </motion.h3>
+             </h3>
 
-             <motion.div 
-               initial={{ opacity: 0 }}
-               animate={{ opacity: 1 }}
-               transition={{ delay: 0.2 }}
-               className="text-[#1D2757]/80 text-base md:text-lg leading-relaxed font-medium"
-             >
+             <div className="text-[#1D2757]/90 leading-relaxed">
                {FASES[activeStep].texto}
-             </motion.div>
+             </div>
           </div>
 
-          {/* Lado Imagen */}
-          <div className="flex-1 relative bg-gray-50 flex items-center justify-center overflow-hidden border-l border-gray-100 min-h-[300px] lg:min-h-full">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeStep}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 1.1 }}
-                transition={{ duration: 0.5 }}
-                className="relative w-full h-full p-8 md:p-12"
-              >
-                <Image 
-                  src={FASES[activeStep].img}
-                  alt={FASES[activeStep].titulo}
-                  fill
-                  className="object-contain"
-                  priority
-                  unoptimized
-                />
-              </motion.div>
-            </AnimatePresence>
+          <div className="flex-1 bg-[#F8F9FA] p-6 md:p-12 flex flex-col justify-between items-center border-l border-gray-100 order-1 lg:order-2">
             
-            <div className="absolute bottom-0 right-0 w-32 h-32 bg-[#C5A059]/10 rounded-tl-full" />
-            <div className="absolute top-0 left-0 w-16 h-16 bg-[#1D2757]/5 rounded-br-full" />
+            <motion.div 
+              whileHover={{ scale: 1.01 }}
+              onClick={() => setIsZoomed(true)}
+              className="relative w-full h-[350px] lg:h-[450px] cursor-zoom-in group shadow-xl rounded-2xl overflow-hidden bg-white"
+            >
+              <Image 
+                src={FASES[activeStep].img}
+                alt={FASES[activeStep].titulo}
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                priority
+              />
+              <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                <div className="bg-white/90 px-6 py-2.5 rounded-full shadow-2xl scale-90 group-hover:scale-100 transition-transform">
+                  <span className="text-[#1D2757] font-black text-[10px] uppercase tracking-widest">
+                    Click para ampliar
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+
+            <div className="w-full flex justify-end mt-8 z-20">
+                <button 
+                  onClick={handleNext}
+                  className="bg-[#1D2757] hover:bg-[#C5A059] text-white px-8 py-3 md:px-10 md:py-4 rounded-xl font-bold text-[10px] md:text-xs uppercase tracking-[0.2em] transition-all flex items-center gap-4 shadow-lg group"
+                >
+                  Siguiente Parte
+                  <svg className="group-hover:translate-x-1 transition-transform" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                    <path d="m9 18 6-6-6-6"/>
+                  </svg>
+                </button>
+            </div>
           </div>
         </motion.div>
-
-        {/* Indicadores visuales */}
-        <div className="flex gap-3">
-          {FASES.map((_, index) => (
-            <div 
-              key={index} 
-              className={`h-2 rounded-full transition-all duration-700 ${activeStep === index ? "w-12 bg-[#C5A059]" : "w-3 bg-gray-300"}`} 
-            />
-          ))}
-        </div>
       </div>
 
-      {/* FOOTER */}
-      <footer className="w-full bg-[#1D2757] p-6 border-t border-[#C5A059]">
-        <div className="max-w-7xl mx-auto flex items-center justify-center gap-6">
-          <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-[#C5A059]/50" />
-          <p className="text-[#C5A059] text-[10px] font-bold tracking-[0.5em] uppercase whitespace-nowrap">
-             • Proyecto UMNG
+      <footer className="w-full bg-[#1D2757] py-5 border-t border-[#C5A059]">
+          <p className="text-[#C5A059] text-[9px] font-bold tracking-[0.5em] uppercase text-center">
+              • Proyecto UMNG •
           </p>
-          <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-[#C5A059]/50" />
-        </div>
       </footer>
+
+      <AnimatePresence>
+        {isZoomed && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsZoomed(false)}
+            className="fixed inset-0 z-[100] bg-[#1D2757]/95 backdrop-blur-md flex items-center justify-center p-6 cursor-zoom-out"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="relative w-full h-full max-w-6xl max-h-[85vh]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Image src={FASES[activeStep].img} alt="Zoom" fill className="object-contain" unoptimized />
+              <button 
+                onClick={() => setIsZoomed(false)}
+                className="absolute -top-12 right-0 text-white flex items-center gap-2 group"
+              >
+                <span className="text-[10px] font-black uppercase tracking-widest group-hover:text-[#C5A059] transition-colors">Cerrar</span>
+                <div className="bg-white/10 p-2 rounded-full group-hover:bg-[#C5A059] transition-colors">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </div>
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }

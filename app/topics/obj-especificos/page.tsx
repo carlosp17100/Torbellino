@@ -29,8 +29,7 @@ export default function ObjetivosEspecificosPage() {
           Contenido del Proyecto
         </h2>
 
-        {/* Botón Volver con logo UMNG */}
- 
+        {/* Botón Volver */}
         <button 
           onClick={() => router.push("/topics")}
           className="bg-[#1D2757] text-white px-6 py-2 rounded-md font-bold text-xs hover:bg-[#C5A059] transition-all flex items-center gap-2 uppercase tracking-widest shadow-sm"
@@ -45,11 +44,11 @@ export default function ObjetivosEspecificosPage() {
       {/* CUERPO CENTRAL */}
       <div className="flex-1 flex flex-col md:flex-row p-6 md:p-12 gap-8 items-center justify-center">
         
-        {/* Lado Izquierdo: Reemplazo de ícono por Logo UMNG */}
+        {/* Logo Institucional Lateral */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="w-48 h-48 bg-white rounded-[2rem] border-2 border-gray-100 flex items-center justify-center shadow-xl relative"
+          className="hidden lg:flex w-48 h-48 bg-white rounded-[2rem] border-2 border-gray-100 items-center justify-center shadow-xl relative shrink-0"
         >
           <div className="relative w-32 h-32">
             <Image 
@@ -62,7 +61,7 @@ export default function ObjetivosEspecificosPage() {
           <div className="absolute top-0 right-0 w-10 h-10 bg-[#C5A059] rounded-tr-[2rem] rounded-bl-full opacity-80" />
         </motion.div>
 
-        {/* Lado Derecho: Recuadro de Contenido */}
+        {/* Tarjeta de Objetivos */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -98,7 +97,7 @@ export default function ObjetivosEspecificosPage() {
               </div>
             </div>
 
-            {/* Imagen Única: obj2.jpg */}
+            {/* Sección de Imagen y Botón */}
             <div className="flex-1 p-8 bg-[#F8F9FA] flex flex-col items-center justify-center">
               <div className="relative w-full aspect-square bg-white rounded-xl overflow-hidden shadow-lg border-2 border-gray-100">
                 <Image 
@@ -112,6 +111,19 @@ export default function ObjetivosEspecificosPage() {
               <p className="mt-4 text-[9px] text-gray-400 font-bold uppercase tracking-[0.3em]">
                 Visualización de Objetivos • Fase Creativa
               </p>
+
+              {/* BOTÓN SIGUIENTE PARTE */}
+              <div className="w-full flex justify-end mt-8">
+                <button 
+                  onClick={() => router.push("/topics/metodologia")}
+                  className="bg-[#1D2757] hover:bg-[#C5A059] text-white px-8 py-4 rounded-lg font-bold text-xs uppercase tracking-[0.2em] transition-all flex items-center gap-3 shadow-md group"
+                >
+                  Siguiente Parte
+                  <svg className="group-hover:translate-x-1 transition-transform" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="m9 18 6-6-6-6"/>
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </motion.div>
