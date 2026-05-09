@@ -132,7 +132,7 @@ export default function EvolucionVestuario() {
       {/* FOOTER */}
       <footer className="w-full bg-[#1D2757] py-8 px-6 mt-auto border-t border-[#C5A059]/20">
         <p className="text-[#C5A059] text-[9px] md:text-xs font-bold tracking-[0.4em] uppercase text-center">
-          • PROYECTO UMNG
+          • PROYECTO UMNG •
         </p>
       </footer>
 

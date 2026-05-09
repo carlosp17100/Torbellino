@@ -186,7 +186,7 @@ export default function BibliografiaPage() {
 
       <footer className="w-full bg-[#1D2757] p-6 border-t border-[#C5A059] mt-auto">
         <p className="text-[#C5A059] text-[10px] font-bold tracking-[0.5em] uppercase text-center">
-          • Proyecto UMNG
+          • Proyecto UMNG •
         </p>
       </footer>
     </main>

@@ -190,7 +190,7 @@ export default function TerritorioPage() {
       </AnimatePresence>
 
       <footer className="w-full bg-[#1D2757] py-10 text-center mt-auto">
-        <p className="text-[#C5A059] text-[9px] font-bold tracking-[0.4em] uppercase"> • Proyecto  UMNG</p>
+        <p className="text-[#C5A059] text-[9px] font-bold tracking-[0.4em] uppercase"> • Proyecto  UMNG •</p>
       </footer>
     </main>
   );

@@ -135,7 +135,7 @@ export default function SoporteInstrumental() {
       {/* FOOTER */}
       <footer className="w-full bg-[#1D2757] py-8 px-6 mt-auto border-t border-[#C5A059]/30">
         <p className="text-[#C5A059] text-[9px] md:text-xs font-bold tracking-[0.3em] uppercase text-center">
-          • Proyecto UMNG 
+          • Proyecto UMNG •
         </p>
       </footer>
 

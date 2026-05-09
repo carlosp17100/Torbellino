@@ -248,7 +248,7 @@ export default function EscenaPage() {
       <footer className="w-full bg-[#1D2757] p-4 border-t border-[#C5A059]">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6">
           <p className="text-[#C5A059] text-[8px] md:text-[10px] font-bold tracking-[0.5em] uppercase text-center">
-            • Proyecto UMNG
+            • Proyecto UMNG •
           </p>
         </div>
       </footer>

@@ -114,7 +114,7 @@ export default function ObjetivoGeneralPage() {
       <footer className="w-full bg-[#1D2757] p-4 border-t border-[#C5A059]">
         <div className="max-w-7xl mx-auto flex items-center justify-center gap-6">
           <p className="text-[#C5A059] text-[10px] font-bold tracking-[0.5em] uppercase whitespace-nowrap">
-            • Proyecto UMNG
+            • Proyecto UMNG •
           </p>
         </div>
       </footer>

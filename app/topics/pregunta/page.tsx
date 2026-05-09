@@ -212,7 +212,7 @@ export default function PreguntaProblemaPage() {
 
       <footer className="w-full bg-[#1D2757] p-4 border-t border-[#C5A059]">
           <p className="text-[#C5A059] text-[8px] md:text-[10px] font-bold tracking-[0.3em] md:tracking-[0.5em] uppercase text-center">
-             • Proyecto UMNG • Pregunta Problema •
+             • Proyecto UMNG •
           </p>
       </footer>
     </main>

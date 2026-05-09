@@ -168,7 +168,7 @@ export default function HallazgosPage() {
 
       <footer className="w-full bg-[#1D2757] p-6 border-t border-[#C5A059] mt-20">
         <p className="text-[#C5A059] text-[10px] font-bold tracking-[0.5em] uppercase text-center">
-         • Proyecto UMNG
+         • Proyecto UMNG •
         </p>
       </footer>
     </main>
