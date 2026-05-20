@@ -13,12 +13,9 @@ export default function JustificacionPage() {
     router.push("/topics/pregunta");
   };
 
-  const justificacionPoints = [
-    { emoji: "🏛️", text: "Preserva el patrimonio cultural del altiplano cundiboyacense." },
-    { emoji: "🎼", text: "Integra memoria, tradición oral y prácticas corporales." },
-    { emoji: "🎓", text: "Favorece una comprensión crítica de sus transformaciones culturales." },
-    { emoji: "✨", text: "Fortalece la creatividad y la transmisión de saberes." },
-    { emoji: "🎭", text: "Vincula tradición y creación contemporánea en el ámbito universitario." },
+  const pilares = [
+    { pilar: "Académico", concepto: "Comprensión", emoji: "🎓" },
+    { pilar: "Contemporáneo", concepto: "Participación", emoji: "✨" },
   ];
 
   return (
@@ -71,27 +68,56 @@ export default function JustificacionPage() {
           animate={{ opacity: 1, y: 0 }}
           className="flex-1 w-full max-w-7xl bg-white rounded-[1.5rem] md:rounded-[2.5rem] shadow-2xl border border-gray-100 overflow-hidden flex flex-col lg:flex-row min-h-[600px]"
         >
-          {/* LADO IZQUIERDO: PUNTOS CLAVE */}
+          {/* LADO IZQUIERDO: TEXTO E INVESTIGACIÓN */}
           <div className="flex-[0.9] p-8 md:p-12 lg:p-14 flex flex-col justify-center bg-white border-b lg:border-b-0 lg:border-r border-gray-100">
-            <span className="text-[#C5A059] font-black text-[10px] uppercase tracking-[0.3em] mb-8 flex items-center gap-2">
+            <span className="text-[#C5A059] font-black text-[10px] uppercase tracking-[0.3em] mb-6 flex items-center gap-2">
               <span className="w-10 h-[2px] bg-[#C5A059]" /> Investigación
             </span>
             
             <div className="space-y-6 md:space-y-8">
-              {justificacionPoints.map((point, index) => (
-                <motion.div 
-                  key={index}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="flex gap-4 items-start group"
-                >
-                  <span className="text-xl md:text-2xl mt-1">{point.emoji}</span>
-                  <p className="text-[#1D2757] text-lg md:text-xl leading-snug font-bold italic tracking-tight group-hover:text-[#C5A059] transition-colors">
-                    {point.text}
-                  </p>
-                </motion.div>
-              ))}
+              {/* Texto Principal Tal Cual */}
+              <motion.p 
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="text-[#1D2757] text-base md:text-lg leading-relaxed font-medium tracking-tight"
+              >
+                La investigación y reactivación del torbellino en ámbitos académicos y artísticos contemporáneos preserva, resignifica y proyecta el patrimonio inmaterial andino colombiano, articulando tradición, crítica, transmisión intergeneracional y creación innovadora.
+              </motion.p>
+
+              {/* Pilares Fundamentales */}
+              <div className="space-y-3">
+                <span className="text-[#1D2757]/60 text-xs font-bold uppercase tracking-wider block">
+                  Pilares fundamentales:
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {pilares.map((item, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="flex items-center gap-3 p-3 bg-[#F8F9FA] rounded-xl border border-gray-100"
+                    >
+                      <span className="text-xl">{item.emoji}</span>
+                      <p className="text-[#1D2757] text-sm md:text-base font-semibold">
+                        <span className="text-[#C5A059]">{item.pilar}:</span> {item.concepto}
+                      </p>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Frase Resaltada */}
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.3 }}
+                className="p-4 md:p-5 bg-[#C5A059]/10 border-l-4 border-[#C5A059] rounded-r-xl mt-4"
+              >
+                <p className="text-[#1D2757] text-lg md:text-xl font-black tracking-wide text-center italic">
+                  “Apropiación cultural consciente”
+                </p>
+              </motion.div>
             </div>
           </div>
 

@@ -58,7 +58,7 @@ const MELODIA_IMAGES: MelodiaImage[] = [
     id: 2, 
     src: "/melodia2.jpg", 
     alt: "Estructura rítmica y Danza", 
-    technicalText: "La sincronía perfecta entre el pulso del requinto y el zapateo campesino." 
+    technicalText: "La sincronía entre el pulso del requinto y el zapateo campesino." 
   },
   { 
     id: 3, 
@@ -125,7 +125,6 @@ export default function MelodiaPage() {
         <h2 className="text-[#1D2757] font-black text-[10px] md:text-xl tracking-[0.1em] md:tracking-[0.2em] uppercase text-center px-2">
           Melodía y <span className="hidden sm:inline">Danza</span>
         </h2>
-
 
         <button 
           onClick={() => router.push("/topics")}
@@ -270,7 +269,12 @@ export default function MelodiaPage() {
             className="fixed inset-0 bg-[#1D2757]/95 z-[100] flex flex-col items-center justify-center p-4 md:p-12 backdrop-blur-md"
             onClick={() => setIsZoomed(false)}
           >
-            <button className="absolute top-8 right-8 text-white/70 hover:text-[#C5A059] transition-colors active:scale-95" aria-label="Cerrar">
+            {/* CORRECCIÓN: Evento onClick agregado directamente al botón de cerrar x */}
+            <button 
+              onClick={() => setIsZoomed(false)}
+              className="absolute top-8 right-8 text-white/70 hover:text-[#C5A059] transition-colors active:scale-95 z-50 cursor-pointer" 
+              aria-label="Cerrar"
+            >
               <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
             </button>
 
