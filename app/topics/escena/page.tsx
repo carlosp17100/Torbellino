@@ -1,255 +1,275 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useRef } from "react";
+import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-const CONTENIDO_MOMENTOS = [
+
+const PILARES = [
   {
-    titulo: "Procesión",
-    descripcion: "Primer momento : Ritual, origen, conexión y espiritualidad.",
-    conceptos: "Ritual • Origen • Espiritualidad"
+    titulo: "Torbellino y raíces indígenas",
+    icon: (
+      <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#4A1E1B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-4a6 6 0 100-12 6 6 0 000 12zm0-4a2 2 0 100-4 2 2 0 000 4z" />
+      </svg>
+    )
   },
   {
-    titulo: "Cintas",
-    descripcion: "Segundo momento : Tensión, diálogo, equilibrio y relación.",
-    conceptos: "Tensión • Diálogo • Equilibrio"
+    titulo: "Investigación",
+    icon: (
+      <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#4A1E1B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
+      </svg>
+    )
   },
   {
-    titulo: "Hilada",
-    descripcion: "Tercer momento : Construcción, unión, compromiso y futuro.",
-    conceptos: "Construcción • Unión • Futuro"
+    titulo: "Amor como proceso",
+    icon: (
+      <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#4A1E1B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+      </svg>
+    )
   },
   {
-    titulo: "Fiesta",
-    descripcion: "Cuarto momento : Fiesta, comunidad, tradición y celebración.",
-    conceptos: "Fiesta • Comunidad • Celebración"
+    titulo: "Encuentro, dificultades, unión y celebración",
+    icon: (
+      <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#4A1E1B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      </svg>
+    )
   }
 ];
 
-const ESCENA_IMAGES = [
-  { src: "/momento1.jpg", momentId: 0 },
-  { src: "/momento1-2.jpg", momentId: 0 },
-  { src: "/cintas.jpg", momentId: 1 },
-  { src: "/momento3.jpg", momentId: 2 },
-  { src: "/momento3-1.jpg", momentId: 2 },
-  { src: "/momento4.jpg", momentId: 3 },
-  { src: "/momento4-1.jpg", momentId: 3 },
+
+const CUATRO_MOMENTOS = [
+  {
+    id: 1,
+    titulo: "Procesión",
+    descripcion: "Atmósfera ritual que representa el encuentro y el nacimiento del vínculo entre los personajes.",
+    imagen: "/momento1.jpg"
+  },
+  {
+    id: 2,
+    titulo: "Cintas",
+    descripcion: "Los personajes se cruzan, se acercan y se alejan, representando las dificultades, los encuentros y las reconciliaciones de la relación.",
+    imagen: "/cintas.jpg"
+  },
+  {
+    id: 3,
+    titulo: "Hilada",
+    descripcion: "El acto de tejer representa la construcción de un proyecto de vida juntos, hasta llegar a la propuesta de matrimonio.",
+    imagen: "/momento3.jpg"
+  },
+  {
+    id: 4,
+    titulo: "Merengue carranguero",
+    descripcion: "La escena se transforma en una celebración colectiva, donde la pareja y la comunidad festejan la unión.",
+    imagen: "/momento4.jpg"
+  }
 ];
 
 export default function EscenaPage() {
   const router = useRouter();
-  const [imgIndex, setImgIndex] = useState(0);
-  const [isZoomed, setIsZoomed] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
+  const fotoBRef = useRef<HTMLDivElement>(null);
 
-  const nextImg = () => setImgIndex((prev) => (prev + 1) % ESCENA_IMAGES.length);
-  const prevImg = () => setImgIndex((prev) => (prev - 1 + ESCENA_IMAGES.length) % ESCENA_IMAGES.length);
-
-  const currentMoment = CONTENIDO_MOMENTOS[ESCENA_IMAGES[imgIndex].momentId];
+  const scrollToFotoB = () => {
+    fotoBRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
-    <main className="min-h-screen bg-[#F3F4F6] flex flex-col font-sans overflow-x-hidden">
+    <main className="min-h-screen bg-[#F7F2ED] text-[#4A1E1B] font-serif overflow-x-hidden flex flex-col">
       
       {/* NAVEGACIÓN INSTITUCIONAL */}
-      <nav className="w-full p-4 md:p-6 flex justify-between items-center z-50 bg-white shadow-sm border-b sticky top-0">
+      <nav className="w-full px-4 py-3 sm:px-6 sm:py-4 md:py-6 flex justify-between items-center z-50 bg-white border-b border-gray-200 sticky top-0 font-sans shadow-sm">
         <div 
-          className="flex items-center gap-2 md:gap-4 cursor-pointer shrink-0" 
+          className="flex items-center gap-2 sm:gap-3 cursor-pointer shrink-0" 
           onClick={() => router.push("/")}
         >
-          <div className="relative w-8 h-8 md:w-12 md:h-12">
+          <div className="relative w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10">
             <Image src="/umng-logo.png" alt="UMNG" fill className="object-contain" priority />
           </div>
-          <span className="text-[#1D2757] font-bold text-[9px] md:text-xs tracking-tighter uppercase leading-tight border-l pl-2 md:pl-4 border-gray-200">
-            Universidad Militar <br /> Nueva Granada
+          <span className="text-[#1D2757] font-bold text-[8px] sm:text-[9px] md:text-xs uppercase leading-tight border-l pl-2 sm:pl-3 border-gray-300">
+            UNIVERSIDAD MILITAR <br /> NUEVA GRANADA
           </span>
         </div>
 
-        <h2 className="text-[#1D2757] font-black text-[10px] md:text-xl tracking-[0.1em] md:tracking-[0.2em] uppercase text-center px-2">
-          Propuesta <span className="hidden sm:inline">Artística</span>
+        <h2 className="text-[#1D2757] font-black text-[10px] sm:text-xs md:text-xl uppercase tracking-[0.15em] sm:tracking-[0.25em] text-center px-1 sm:px-2">
+          PROPUESTA ESCÉNICA
         </h2>
 
         <button 
           onClick={() => router.push("/topics")}
-          className="bg-[#1D2757] text-white px-6 py-2 rounded-md font-bold text-xs hover:bg-[#C5A059] transition-all flex items-center gap-2 uppercase tracking-widest shadow-sm"
+          className="bg-[#1D2757] text-white px-3 py-1.5 sm:px-6 sm:py-2 rounded-full font-bold text-[10px] sm:text-xs hover:bg-[#C5A059] transition-all flex items-center gap-1.5 sm:gap-2 uppercase tracking-widest shadow-md shrink-0"
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
             <path d="m15 18-6-6 6-6"/>
           </svg>
-          Volver
+          <span className="hidden xs:inline">VOLVER</span>
         </button>
       </nav>
 
-      {/* CUERPO CENTRAL */}
-      <div className="flex-1 flex flex-col p-4 md:p-12 items-center justify-center">
-        
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="w-full max-w-7xl bg-white rounded-[1.5rem] md:rounded-[2.5rem] shadow-2xl border border-gray-100 overflow-hidden flex flex-col lg:flex-row min-h-[auto] md:min-h-[600px]"
-        >
-          {/* LADO IZQUIERDO: TEXTO DESCRIPTIVO */}
-          <div className="flex-1 p-8 md:p-12 lg:p-16 flex flex-col justify-center relative bg-white order-2 lg:order-1">
-            <div className="absolute top-0 left-0 w-full h-1 lg:w-2 lg:h-full bg-[#C5A059]" />
+      {
 
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={ESCENA_IMAGES[imgIndex].momentId}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 20 }}
-                transition={{ duration: 0.3 }}
-              >
-                <h3 className="text-[#1D2757] text-2xl md:text-5xl font-black uppercase mb-4 md:mb-8 leading-tight">
-                  Puesta en <br className="hidden md:block" /> {currentMoment.titulo}
-                </h3>
+      }
+      <section className="flex flex-col justify-between items-center px-4 sm:px-6 py-8 md:py-12 max-w-7xl mx-auto w-full relative">
+        <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-8 md:gap-12 my-auto">
+          
+          {/* LADO IZQUIERDO: TEXTO E ÍCONOS */}
+          <div className="flex-1 flex flex-col justify-center items-center lg:items-start text-center lg:text-left w-full">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-normal text-[#4A1E1B] leading-tight mb-3 sm:mb-4">
+              Nuestra <br />
+              <span className="font-semibold italic">propuesta escénica</span>
+            </h1>
 
-                <div className="relative">
-                   <span className="text-4xl md:text-6xl font-serif text-[#C5A059]/30 absolute -top-4 -left-2 md:-top-6 md:-left-4 select-none">&ldquo;</span>
-                   <p className="text-[#1D2757] text-base md:text-2xl leading-relaxed text-justify font-medium italic relative z-10">
-                     {currentMoment.descripcion}
-                   </p>
-                </div>
-
-                <div className="mt-6 md:mt-10 flex gap-3 md:gap-4 items-center">
-                    <div className="h-[1px] w-12 md:w-20 bg-[#1D2757]/20" />
-                    <p className="text-[8px] md:text-[10px] text-[#C5A059] font-bold uppercase tracking-widest">
-                      {currentMoment.conceptos}
-                    </p>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* LADO DERECHO: CARRUSEL E IMAGEN */}
-          <div className="flex-1 relative bg-[#F8F9FA] flex flex-col items-center justify-center p-4 md:p-8 border-b lg:border-l border-gray-50 order-1 lg:order-2">
-            
-            <div 
-              className="relative w-full h-[250px] sm:h-[350px] md:h-[450px] group overflow-hidden rounded-2xl"
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-            >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={imgIndex}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.4 }}
-                  className="w-full h-full cursor-zoom-in relative"
-                  onClick={() => setIsZoomed(true)}
-                >
-                  <Image 
-                    src={ESCENA_IMAGES[imgIndex].src}
-                    alt={`Registro ${imgIndex + 1}`}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105" 
-                    priority
-                    unoptimized
-                  />
-
-                  <motion.div 
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: isHovered ? 1 : 0 }}
-                    className="absolute inset-0 bg-black/20 flex items-center justify-center"
-                  >
-                    <div className="bg-white px-6 py-3 rounded-full shadow-xl">
-                      <span className="text-[#1D2757] font-black text-[10px] md:text-xs uppercase tracking-widest">
-                        Click para ampliar
-                      </span>
-                    </div>
-                  </motion.div>
-                </motion.div>
-              </AnimatePresence>
-
-              <button 
-                onClick={(e) => { e.stopPropagation(); prevImg(); }} 
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 p-2 rounded-full text-[#1D2757] shadow-lg z-20 active:scale-95 transition-all hover:bg-[#C5A059] hover:text-white"
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="m15 18-6-6 6-6"/></svg>
-              </button>
-              
-              <button 
-                onClick={(e) => { e.stopPropagation(); nextImg(); }} 
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 p-2 rounded-full text-[#1D2757] shadow-lg z-20 active:scale-95 transition-all hover:bg-[#C5A059] hover:text-white"
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="m9 18 6-6-6-6"/></svg>
-              </button>
+            {/* SEPARADOR DECORATIVO */}
+            <div className="flex items-center gap-2 mb-6 sm:mb-8 w-28 sm:w-32">
+              <div className="h-[1px] bg-[#4A1E1B]/30 flex-1" />
+              <div className="w-2 h-2 rotate-45 border border-[#4A1E1B]" />
+              <div className="h-[1px] bg-[#4A1E1B]/30 flex-1" />
             </div>
 
-            {/* INDICADOR Y BOTÓN SIGUIENTE */}
-            <div className="mt-6 w-full flex flex-col items-center">
-              <div className="flex flex-col items-center gap-2 mb-4">
-                <span className="text-[9px] md:text-[10px] font-black text-[#1D2757] uppercase tracking-tighter">Registro 0{imgIndex + 1} / 0{ESCENA_IMAGES.length}</span>
-                <div className="flex gap-1.5">
-                  {ESCENA_IMAGES.map((_, i) => (
-                    <div key={i} className={`h-1 rounded-full transition-all duration-300 ${imgIndex === i ? "w-6 md:w-8 bg-[#C5A059]" : "w-1.5 md:w-2 bg-gray-200"}`} />
-                  ))}
+            {/* 4 PILARES EN GRID */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 w-full">
+              {PILARES.map((pilar, index) => (
+                <div key={index} className="flex flex-col items-center text-center group">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#EFE8E1] border border-[#4A1E1B]/20 flex items-center justify-center mb-2 sm:mb-3 shadow-inner group-hover:scale-105 transition-transform shrink-0">
+                    {pilar.icon}
+                  </div>
+                  <p className="text-[11px] sm:text-xs md:text-sm text-[#4A1E1B] font-serif leading-tight sm:leading-snug">
+                    {pilar.titulo}
+                  </p>
                 </div>
-              </div>
-
-              {/* BOTÓN CON ESTILO DE JUSTIFICACIÓN E INTERACCIÓN DORADA */}
-              <div className="w-full flex justify-center z-20">
-                <button 
-                  onClick={() => router.push("/topics/origen")}
-                  className="bg-[#1D2757] hover:bg-[#C5A059] text-white px-8 py-3 md:px-10 md:py-4 rounded-xl font-bold text-[10px] md:text-xs uppercase tracking-[0.2em] transition-all flex items-center gap-4 shadow-lg group"
-                >
-                  Siguiente Parte
-                  <svg className="group-hover:translate-x-1 transition-transform" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                    <path d="m9 18 6-6-6-6"/>
-                  </svg>
-                </button>
-              </div>
+              ))}
             </div>
           </div>
-        </motion.div>
-      </div>
 
-      {/* MODAL ZOOM CON BOTÓN DE CERRAR DORADO */}
-      <AnimatePresence>
-        {isZoomed && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-[#1D2757]/95 backdrop-blur-md flex items-center justify-center p-4"
-          >
-            {/* BOTÓN CERRAR CON INTERACCIÓN DORADA */}
-            <button 
-              onClick={() => setIsZoomed(false)}
-              className="absolute top-6 right-6 text-white hover:text-[#C5A059] transition-colors z-[110] flex items-center gap-2 group"
-            >
-              <span className="text-[10px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Cerrar</span>
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M18 6L6 18M6 6l12 12"/>
-              </svg>
-            </button>
-
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative w-full h-full max-w-6xl flex items-center justify-center"
-            >
-              <Image
-                src={ESCENA_IMAGES[imgIndex].src}
-                alt="Vista ampliada"
+          {/* LADO DERECHO: FOTO PRINCIPAL (CORREGIDA LA ALTURA) */}
+          <div className="flex-1 w-full flex justify-center">
+            <div className="relative w-full max-w-xl aspect-[4/3] min-h-[260px] sm:min-h-[360px] lg:min-h-[420px] rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden border-2 border-[#4A1E1B]/20 shadow-2xl">
+              <Image 
+                src="/momento4-1.jpg" 
+                alt="Propuesta escénica"
                 fill
-                className="object-contain"
+                className="object-cover"
+                priority
                 unoptimized
               />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </div>
+          </div>
+        </div>
 
-      <footer className="w-full bg-[#1D2757] p-4 border-t border-[#C5A059]">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6">
-          <p className="text-[#C5A059] text-[8px] md:text-[10px] font-bold tracking-[0.5em] uppercase text-center">
-            • Proyecto UMNG •
-          </p>
+        {/* BOTÓN INFERIOR DE DESPLAZAMIENTO HACIA FOTO B */}
+        <div className="pt-8 pb-4 flex flex-col items-center">
+          <button 
+            onClick={scrollToFotoB}
+            className="bg-[#1D2757] text-white px-6 py-3 sm:px-8 sm:py-3.5 rounded-full font-sans text-[11px] sm:text-xs font-bold uppercase tracking-[0.15em] sm:tracking-[0.2em] hover:bg-[#C5A059] transition-all flex items-center gap-2.5 sm:gap-3 shadow-lg group"
+          >
+            Ver los 4 Momentos
+            <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <path d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      {
+        
+      }
+      <section ref={fotoBRef} className="min-h-screen bg-[#4A1E1B] text-[#F7F2ED] py-12 sm:py-16 md:py-20 px-4 sm:px-6 border-t-2 border-[#C5A059]/40 flex flex-col justify-center items-center relative">
+        <div className="max-w-7xl mx-auto w-full flex flex-col items-center relative z-10">
+          
+          {/* ENCABEZADO */}
+          <div className="text-center mb-8 sm:mb-12 md:mb-14">
+            <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl font-normal mb-2 sm:mb-3 tracking-wide text-[#F7F2ED]">
+              La historia en cuatro momentos
+            </h2>
+            
+            <div className="flex items-center justify-center gap-2 my-3 sm:my-4">
+              <div className="h-[1px] w-8 sm:w-12 bg-[#C5A059]/60" />
+              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rotate-45 border border-[#C5A059]" />
+              <div className="h-[1px] w-8 sm:w-12 bg-[#C5A059]/60" />
+            </div>
+
+            <p className="text-[#E2D8CE] text-xs sm:text-sm md:text-base max-w-2xl font-serif italic px-2">
+              Nuestra puesta en escena cuenta una historia de amor a través de cuatro momentos inspirados en el torbellino.
+            </p>
+          </div>
+
+          {/* GRID DE TARJETAS TIPO ARCO */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full mb-8 sm:mb-12">
+            {CUATRO_MOMENTOS.map((momento) => (
+              <motion.div 
+                key={momento.id}
+                whileHover={{ y: -6 }}
+                transition={{ duration: 0.3 }}
+                className="bg-[#F7F2ED] text-[#4A1E1B] rounded-t-[3rem] sm:rounded-t-[3.5rem] rounded-b-2xl p-5 sm:p-6 flex flex-col items-center text-center shadow-2xl border border-[#C5A059]/30 relative group overflow-hidden max-w-sm sm:max-w-none mx-auto w-full"
+              >
+                {/* MARCO ARCO CON NÚMERO BADGE */}
+                <div className="relative w-full h-48 sm:h-56 rounded-t-[2.5rem] sm:rounded-t-[3rem] rounded-b-xl overflow-hidden mb-5 sm:mb-6 shadow-md border-2 border-white">
+                  <Image 
+                    src={momento.imagen} 
+                    alt={momento.titulo}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    unoptimized
+                  />
+                  
+                  {/* NUMERACIÓN INFERIOR DE LA FOTO */}
+                  <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#4A1E1B] text-[#F7F2ED] border-2 border-[#C5A059] flex items-center justify-center font-sans font-bold text-xs shadow-md">
+                    {momento.id}
+                  </div>
+                </div>
+
+                {/* TÍTULO DEL MOMENTO */}
+                <h3 className="font-serif text-lg sm:text-xl font-semibold mb-2 text-[#4A1E1B]">
+                  {momento.titulo}
+                </h3>
+
+                {/* ADORNO */}
+                <div className="flex items-center gap-1.5 mb-3">
+                  <div className="h-[1px] w-4 sm:w-5 bg-[#C5A059]" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#C5A059]" />
+                  <div className="h-[1px] w-4 sm:w-5 bg-[#C5A059]" />
+                </div>
+
+                {/* DESCRIPCIÓN */}
+                <p className="text-[#624643] text-xs md:text-sm font-sans leading-relaxed font-normal">
+                  {momento.descripcion}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* BOTÓN "SIGUIENTE PARTE" (Navega a /topics/origen) */}
+          <div className="w-full flex justify-center mt-2 sm:mt-4">
+            <button 
+              onClick={() => router.push("/topics/origen")}
+              className="bg-[#2D3452] hover:bg-[#1D2757] text-white px-6 py-3 sm:px-8 sm:py-3.5 rounded-xl font-sans font-bold text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] transition-all flex items-center gap-2.5 sm:gap-3 shadow-xl active:scale-95 group"
+            >
+              SIGUIENTE PARTE
+              <svg className="group-hover:translate-x-1 transition-transform" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                <path d="m9 18 6-6-6-6"/>
+              </svg>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      {/* BANNER FOOTER */}
+      <footer className="w-full bg-[#1A2242] py-4 px-4 sm:px-6 md:px-12 flex items-center justify-between border-t border-[#C5A059]/30 font-sans relative">
+        <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#11162A] border border-gray-600/50 flex items-center justify-center shrink-0">
+          <span className="text-[#F7F2ED] font-black text-[10px] sm:text-xs font-serif italic">N</span>
+        </div>
+
+        <div className="flex-1 flex items-center justify-center mx-2 sm:mx-6 md:mx-12">
+          <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-[#C5A059]/50 to-[#C5A059]" />
+          <span className="text-[#C5A059] text-[8px] sm:text-[9px] md:text-xs font-bold tracking-[0.25em] sm:tracking-[0.4em] uppercase whitespace-nowrap px-2 sm:px-4">
+            • PROYECTO UMNG •
+          </span>
+          <div className="h-[1px] w-full bg-gradient-to-l from-transparent via-[#C5A059]/50 to-[#C5A059]" />
         </div>
       </footer>
     </main>

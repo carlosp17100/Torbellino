@@ -88,7 +88,7 @@ export default function PreguntaProblemaPage() {
              
              <p className="text-[#1D2757] text-2xl md:text-4xl leading-snug text-justify font-bold italic">
                 <span className="text-6xl md:text-8xl font-bold float-left mr-3 leading-none text-[#C5A059]">¿</span>
-                Qué implicaciones culturales, pedagógicas y creativas tiene la reactivación del <strong className="text-[#C5A059] not-italic">torbellino</strong> en procesos académicos y artísticos contemporáneos en el contexto universitario?
+                Cómo puede la investigación-creación contribuir a comprender y resignificar el <strong className="text-[#C5A059] not-italic">torbellino</strong> desde la práctica corporal y artística en el contexto universitario?
              </p>
           </div>
 
@@ -129,9 +129,9 @@ export default function PreguntaProblemaPage() {
                   whileHover={{ scale: 1.05 }}
                   className="bg-white px-6 py-2.5 rounded-full shadow-2xl"
                  >
-                   <span className="text-[#1D2757] font-black text-[10px] uppercase tracking-widest">
-                     Click para ampliar
-                   </span>
+                    <span className="text-[#1D2757] font-black text-[10px] uppercase tracking-widest">
+                      Click para ampliar
+                    </span>
                  </motion.div>
               </div>
 

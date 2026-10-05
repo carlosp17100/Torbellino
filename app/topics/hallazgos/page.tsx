@@ -7,25 +7,32 @@ import Image from "next/image";
 
 const HALLAZGOS = [
   {
-    id: "cultural",
-    categoria: "Culturales",
-    titulo: "Memoria y Territorio",
-    frase: "“El patrimonio cultural es una práctica viva que se resignifica en el presente a través de la memoria, el territorio y la comunidad.”",
+    id: "tradicion-diversa",
+    categoria: "Hallazgo 1",
+    titulo: "Tradición Diversa",
+    frase: "“El torbellino es una tradición diversa, no una manifestación homogénea.”",
     icon: "🌍",
   },
   {
-    id: "pedagogico",
-    categoria: "Pedagógicos",
-    titulo: "Cuerpo y Comprensión",
-    frase: "“El torbellino, como dispositivo pedagógico, integra análisis crítico y experiencia corporal, transformando la danza en un proceso de comprensión y no solo de ejecución.”",
-    icon: "🎓",
+    id: "complejidad-ritmica",
+    categoria: "Hallazgo 2",
+    titulo: "Complejidad del Torbellino",
+    frase: "“La complejidad del torbellino no depende únicamente de su velocidad.”",
+    icon: "🌀",
   },
   {
-    id: "creativo",
-    categoria: "Creativas",
-    titulo: "Tradición e Innovación",
-    frase: "“La tradición, comprendida críticamente, se convierte en motor de creación contemporánea sin perder su identidad cultural.”",
+    id: "elementos-creativos",
+    categoria: "Hallazgo 3",
+    titulo: "Posibilidades de Creación",
+    frase: "“Los elementos tradicionales pueden convertirse en posibilidades de creación.”",
     icon: "✨",
+  },
+  {
+    id: "investigacion-corporal",
+    categoria: "Hallazgo 4",
+    titulo: "Investigación desde el Cuerpo",
+    frase: "“Investigar desde el cuerpo transforma la relación con la tradición.”",
+    icon: "🎭",
   }
 ];
 
@@ -58,33 +65,45 @@ export default function HallazgosPage() {
         </button>
       </nav>
 
-      <div className="flex-1 max-w-7xl mx-auto w-full p-6 md:p-12 lg:p-20">
+      <div className="flex-1 max-w-7xl mx-auto w-full p-6 md:p-12 lg:p-16">
         
         {/* ENCABEZADO */}
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-20"
+          className="text-center mb-16"
         >
-          <span className="text-[#C5A059] font-black text-sm uppercase tracking-[0.4em] mb-4 block">Resultados de Investigación</span>
-          <h3 className="text-[#1D2757] text-4xl md:text-6xl font-black uppercase leading-tight">Síntesis del Proceso</h3>
+          <span className="text-[#C5A059] font-black text-sm uppercase tracking-[0.4em] mb-4 block">
+            Resultados de Investigación
+          </span>
+          <h3 className="text-[#1D2757] text-4xl md:text-6xl font-black uppercase leading-tight">
+            Síntesis del Proceso
+          </h3>
         </motion.div>
 
-        {/* GRID DE CARDS (HALLAZGOS) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* GRID DE CARDS (4 HALLAZGOS) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {HALLAZGOS.map((item) => (
             <motion.div
               key={item.id}
               layoutId={item.id}
               onClick={() => setSelectedId(item.id)}
-              whileHover={{ y: -10 }}
-              className="bg-white p-10 rounded-[2.5rem] shadow-xl border border-gray-100 cursor-pointer group flex flex-col items-center justify-center text-center h-[380px] relative overflow-hidden"
+              whileHover={{ y: -8 }}
+              className="bg-white p-8 rounded-[2.5rem] shadow-xl border border-gray-100 cursor-pointer group flex flex-col items-center justify-between text-center h-[360px] relative overflow-hidden"
             >
-              <span className="text-6xl mb-6 block group-hover:scale-110 transition-transform duration-300">{item.icon}</span>
-              <h4 className="text-[#C5A059] font-bold text-xs uppercase tracking-widest mb-3">{item.categoria}</h4>
-              <h5 className="text-[#1D2757] text-2xl font-black uppercase leading-tight">{item.titulo}</h5>
+              <span className="text-5xl my-4 block group-hover:scale-110 transition-transform duration-300">
+                {item.icon}
+              </span>
+              <div>
+                <h4 className="text-[#C5A059] font-bold text-xs uppercase tracking-widest mb-2">
+                  {item.categoria}
+                </h4>
+                <h5 className="text-[#1D2757] text-xl font-black uppercase leading-snug">
+                  {item.titulo}
+                </h5>
+              </div>
               
-              <p className="mt-8 text-[#1D2757]/30 text-[10px] font-black uppercase tracking-[0.2em] group-hover:text-[#C5A059] transition-colors">
+              <p className="mt-4 text-[#1D2757]/40 text-[9px] font-black uppercase tracking-[0.2em] group-hover:text-[#C5A059] transition-colors">
                 Haz clic para explorar
               </p>
               
@@ -93,29 +112,28 @@ export default function HallazgosPage() {
           ))}
         </div>
 
-        {/* CONCLUSIÓN FINAL */}
+        {/* PREGUNTA PROBLEMA (REEMPLAZA A CONCLUSIÓN FINAL) */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ delay: 0.2 }}
-          className="mt-20 md:mt-32 bg-[#1D2757] p-12 md:p-24 rounded-[4rem] text-center relative overflow-hidden shadow-[0_35px_60px_-15px_rgba(29,39,87,0.3)]"
+          className="mt-16 md:mt-24 bg-[#1D2757] p-10 md:p-20 rounded-[3.5rem] text-center relative overflow-hidden shadow-[0_35px_60px_-15px_rgba(29,39,87,0.3)]"
         >
           <div className="absolute -top-24 -right-24 w-80 h-80 bg-[#C5A059]/10 rounded-full blur-3xl" />
           <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-white/5 rounded-full blur-3xl" />
           
-          <span className="text-[#C5A059] font-black text-xs md:text-sm uppercase tracking-[0.6em] mb-10 block relative z-10">
+          <span className="text-[#C5A059] font-black text-xs md:text-sm uppercase tracking-[0.6em] mb-8 block relative z-10">
             Conclusión Final
           </span>
           
-          <h4 className="text-white text-3xl md:text-5xl font-black uppercase leading-[1.15] italic relative z-10">
-            “La tradición no es pasado: <br className="hidden md:block" /> 
-            <span className="text-[#C5A059] not-italic mt-4 block md:inline"> es materia viva para crear el futuro.”</span>
+          <h4 className="text-white text-xl sm:text-2xl md:text-3xl font-medium leading-[1.4] italic relative z-10 max-w-4xl mx-auto">
+            “¿Cómo puede la <strong className="text-[#C5A059] font-bold not-italic">investigación-creación</strong> contribuir a comprender y resignificar el <strong className="text-[#C5A059] font-bold not-italic">torbellino</strong> desde la práctica corporal y artística en el contexto universitario?”
           </h4>
         </motion.div>
 
         {/* BOTÓN SIGUIENTE PARTE */}
-        <div className="w-full flex justify-center mt-20 md:mt-32 z-20">
+        <div className="w-full flex justify-center mt-16 md:mt-24 z-20">
           <motion.button 
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -145,19 +163,23 @@ export default function HallazgosPage() {
               <motion.div
                 key={h.id}
                 layoutId={h.id}
-                className="bg-white rounded-[3.5rem] p-10 md:p-20 max-w-3xl w-full shadow-2xl text-center relative border-t-8 border-[#C5A059]"
+                className="bg-white rounded-[3rem] p-8 md:p-16 max-w-2xl w-full shadow-2xl text-center relative border-t-8 border-[#C5A059]"
                 onClick={(e) => e.stopPropagation()}
               >
                 <button 
                   onClick={() => setSelectedId(null)}
-                  className="absolute top-10 right-10 text-gray-300 hover:text-[#C5A059] transition-colors"
+                  className="absolute top-8 right-8 text-gray-300 hover:text-[#C5A059] transition-colors"
                 >
-                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                  </svg>
                 </button>
 
-                <span className="text-8xl mb-8 block">{h.icon}</span>
-                <h3 className="text-[#1D2757] text-3xl md:text-4xl font-black uppercase mb-10 leading-tight">{h.titulo}</h3>
-                <p className="text-[#1D2757] text-xl md:text-2xl font-medium italic leading-relaxed px-4">
+                <span className="text-7xl mb-6 block">{h.icon}</span>
+                <h3 className="text-[#1D2757] text-2xl md:text-3xl font-black uppercase mb-8 leading-tight">
+                  {h.titulo}
+                </h3>
+                <p className="text-[#1D2757] text-lg md:text-2xl font-medium italic leading-relaxed px-2">
                   {h.frase}
                 </p>
               </motion.div>

@@ -46,30 +46,36 @@ const FASES = [
   },
   {
     id: 3,
-    titulo: "Fase 3. Sistematización y creación escénica",
+    titulo: "Fase 3: Creación y sistematización",
     categoria: "Metodología",
     texto: (
-      <div className="space-y-5 text-[#1D2757]">
-        <section>
-          <p className="text-lg font-black mb-1">3.1 Sistematización de hallazgos</p>
-          <ul className="pl-6 space-y-1 text-base md:text-lg">
-            <li>• Registros Audiovisuales</li>
-            <li>• Bitácoras reflexivas</li>
+      <div className="space-y-6 text-[#1D2757]">
+        <p className="text-lg md:text-xl font-medium leading-snug">
+          Enfoque en conservar la memoria del proceso creativo.
+        </p>
+        
+        <div>
+          <p className="text-lg font-black mb-2 uppercase tracking-wide text-[#C5A059]">
+            Formas de registro:
+          </p>
+          <ul className="pl-6 space-y-2 text-base md:text-lg font-medium">
+            <li className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#1D2757]" /> Bitácoras físicas
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#1D2757]" /> Registros audiovisuales
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#1D2757]" /> Bitácora corporal
+            </li>
           </ul>
-        </section>
-        <section>
-          <p className="text-lg font-black mb-1">3.2 Acompañamiento</p>
-          <ul className="pl-6 space-y-1 text-base md:text-lg">
-            <li>• Orientación dramatúrgica</li>
-            <li>• Consolidación conceptual</li>
-          </ul>
-        </section>
-        <section>
-          <p className="text-lg font-black mb-1">3.3 Creación escénica</p>
-          <ul className="pl-6 space-y-1 text-base md:text-lg">
-            <li>• Propuesta escénica vinculada al territorio.</li>
-          </ul>
-        </section>
+        </div>
+
+        <div className="p-6 bg-[#F3F4F6] rounded-2xl border border-gray-100">
+          <p className="text-base md:text-lg font-bold italic text-[#1D2757] leading-relaxed">
+            Así, la metodología establece un ciclo continuo: reconocer, explorar, registrar y crear.
+          </p>
+        </div>
       </div>
     ),
     img: "/fase3.jpg",
@@ -81,7 +87,6 @@ export default function MetodologiaPage() {
   const [activeStep, setActiveStep] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false);
 
-  // Modificado para dirigir siempre a tecnicas
   const handleNext = () => {
     router.push("/topics/tecnicas");
   };

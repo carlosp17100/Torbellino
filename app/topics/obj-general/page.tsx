@@ -73,8 +73,8 @@ export default function ObjetivoGeneralPage() {
             {/* Sección de Texto */}
             <div className="flex-1 p-10 border-r border-gray-100 flex flex-col justify-center">
               <p className="text-[#1D2757] text-xl md:text-2xl leading-relaxed text-justify font-medium">
-                <span className="text-6xl font-bold float-left mr-3 leading-none text-[#C5A059]">A</span>
-                nalizar las implicaciones culturales, pedagógicas y creativas de la reactivación del <strong className="text-[#C5A059]">torbellino</strong> en procesos académicos y artísticos contemporáneos dentro del contexto universitario.
+                <span className="text-6xl font-bold float-left mr-3 leading-none text-[#C5A059]">C</span>
+                omprender y resignificar el <strong className="text-[#C5A059]">torbellino</strong> mediante un proceso de investigación-creación desarrollado desde la práctica corporal y artística en el contexto universitario.
               </p>
             </div>
 
