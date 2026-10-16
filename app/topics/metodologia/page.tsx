@@ -88,7 +88,8 @@ export default function MetodologiaPage() {
   const [isZoomed, setIsZoomed] = useState(false);
 
   const handleNext = () => {
-    router.push("/topics/tecnicas");
+    // Redirección actualizada hacia Puesta en Escena
+    router.push("/topics/escena");
   };
 
   return (

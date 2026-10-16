@@ -31,7 +31,7 @@ export default function TerritorioPage() {
       {/* CONTENIDO PRINCIPAL (MAPA) */}
       <section className="p-6 md:p-12 lg:p-20 max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-10 items-center flex-1">
         <div className="relative aspect-square bg-white p-6 rounded-[2.5rem] shadow-xl order-2 md:order-1">
-           <img src="/territorio1.png" alt="Mapa" className="w-full h-full object-contain" />
+            <img src="/territorio1.png" alt="Mapa" className="w-full h-full object-contain" />
         </div>
         <div className="space-y-6 text-center md:text-left order-1 md:order-2">
           <span className="inline-block bg-[#C5A059] text-white px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest">Núcleo Andino</span>
@@ -47,7 +47,7 @@ export default function TerritorioPage() {
         <motion.button 
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          onClick={() => router.push("/topics/contexto")}
+          onClick={() => router.push("/topics/melodia")}
           className="bg-[#1D2757] hover:bg-[#C5A059] text-white px-8 py-3 md:px-12 md:py-4 rounded-xl font-bold text-[10px] md:text-xs uppercase tracking-[0.2em] transition-all flex items-center gap-4 shadow-lg group"
         >
           Siguiente Parte
@@ -58,7 +58,7 @@ export default function TerritorioPage() {
       </div>
 
       <footer className="w-full bg-[#1D2757] py-10 text-center mt-auto">
-        <p className="text-[#C5A059] text-[9px] font-bold tracking-[0.4em] uppercase"> • Proyecto  UMNG •</p>
+        <p className="text-[#C5A059] text-[9px] font-bold tracking-[0.4em] uppercase">Proyecto UMNG •</p>
       </footer>
     </main>
   );

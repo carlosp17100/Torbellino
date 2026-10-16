@@ -16,34 +16,30 @@ interface Topic {
 
 const TOPICS: Topic[] = [
   // --- LADO IZQUIERDO (6 temas) ---
-  { id: "justificacion", label: "Justificación", emoji: "📋", x: 20, y: 25 },
-  { id: "obj-especificos", label: "Objetivos Específicos", emoji: "📌", x: 12, y: 48 },
-  { id: "origen", label: "Origen Territorial", emoji: "🗺️", x: 18, y: 72 },
-  { id: "instrumentos", label: "Instrumentación", emoji: "🎸", x: 8, y: 90 },
-  { id: "vestuario", label: "Vestuario del Torbellino", emoji: "👗", x: 28, y: 92 },
-  { id: "hallazgos", label: "Discusión y Hallazgos", emoji: "📊", x: 42, y: 88 },
+  { id: "justificacion", label: "Justificación", emoji: "📋", x: 20, y: 25 }, // Índice 0
+  { id: "obj-especificos", label: "Objetivos Específicos", emoji: "📌", x: 12, y: 48 }, // Índice 1
+  { id: "origen", label: "Origen Territorial", emoji: "🗺️", x: 18, y: 72 }, // Índice 2
+  { id: "instrumentos", label: "Instrumentación", emoji: "🎸", x: 8, y: 90 }, // Índice 3
+  { id: "vestuario", label: "Vestuario del Torbellino", emoji: "👗", x: 28, y: 92 }, // Índice 4
+  { id: "hallazgos", label: "Discusión y Hallazgos", emoji: "📊", x: 42, y: 88 }, // Índice 5
 
   // --- EJE CENTRAL ---
-  { id: "pregunta", label: "Pregunta Problema", emoji: "❓", x: 50, y: 14 },
-  { id: "metodologia", label: "Diseño Metodológico", emoji: "🔬", x: 50, y: 52, isCenter: true },
+  { id: "pregunta", label: "Pregunta Problema", emoji: "❓", x: 50, y: 14 }, // Índice 6
+  { id: "metodologia", label: "Diseño Metodológico", emoji: "🔬", x: 50, y: 52, isCenter: true }, // Índice 7
 
-  // --- LADO DERECHO (7 temas) ---
-  { id: "obj-general", label: "Objetivo General", emoji: "🎯", x: 80, y: 25 },
-  { id: "tecnicas", label: "Técnicas e Instrumentos", emoji: "🛠️", x: 92, y: 48 },
-  { id: "escena", label: "Puesta en Escena", emoji: "🎭", x: 82, y: 70 },
-  { id: "melodia", label: "Melodía y Danza", emoji: "🎵", x: 62, y: 90 },
-  { id: "multimedia", label: "Multimedia", emoji: "🎬", x: 94, y: 75 },
-  { id: "bibliografia", label: "Bibliografía", emoji: "📚", x: 84, y: 94 },
-  // ID cambiado a "contexto" para que la URL sea /topics/contexto
-  { id: "contexto", label: "Contexto Coreográfico", emoji: "🩰", x: 72, y: 82 },
+  // --- LADO DERECHO (5 temas restantes) ---
+  { id: "obj-general", label: "Objetivo General", emoji: "🎯", x: 80, y: 25 }, // Índice 8
+  { id: "escena", label: "Puesta en Escena", emoji: "🎭", x: 82, y: 70 }, // Índice 9
+  { id: "melodia", label: "Melodía y Danza", emoji: "🎵", x: 62, y: 90 }, // Índice 10
+  { id: "multimedia", label: "Multimedia", emoji: "🎬", x: 94, y: 75 }, // Índice 11
+  { id: "bibliografia", label: "Bibliografía", emoji: "📚", x: 84, y: 94 }, // Índice 12
 ];
 
 const CONNECTIONS: [number, number][] = [
-  // Conexiones desde el centro (metodología - Index 7)
-  [7, 0], [7, 1], [7, 2], [7, 5], [7, 6], [7, 8], [7, 9], [7, 10], [7, 11], [7, 14],
-  // Conexiones periféricas
-  [0, 6], [6, 8], [1, 0], [9, 8], [2, 1], [3, 4], [4, 5], [10, 9], [12, 10], [12, 13], [13, 11], [5, 11],
-  [14, 11], [14, 10]
+  // Conexiones desde el nodo central (Metodología - Índice 7 hacia el resto)
+  [7, 0], [7, 1], [7, 2], [7, 5], [7, 6], [7, 8], [7, 9], [7, 10], [7, 11], [7, 12],
+  // Conexiones periféricas actualizadas sin los nodos eliminados
+  [0, 6], [6, 8], [1, 0], [5, 8], [2, 1], [3, 4], [4, 5], [10, 9], [12, 11], [9, 11]
 ];
 
 export default function TopicsPage() {
@@ -86,7 +82,6 @@ export default function TopicsPage() {
         <motion.button
           whileHover={{ scale: 1.1, zIndex: 50 }}
           whileTap={{ scale: 0.95 }}
-          // Al ser el id "contexto", esto navegará a /topics/contexto
           onClick={() => router.push(`/topics/${topic.id}`)}
           className={`
             flex flex-col items-center justify-center transition-all duration-300
