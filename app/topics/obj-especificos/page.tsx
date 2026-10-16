@@ -6,9 +6,9 @@ import Image from "next/image";
 import { useState } from "react";
 
 const OBJETIVOS = [
-  "Identificar las implicaciones culturales de la activación patrimonial del torbellino en el contexto universitario, considerando su aporte a la visibilización del patrimonio cultural inmaterial.",
-  "Examinar las implicaciones pedagógicas que surgen al integrar el torbellino en procesos académicos contemporáneos, en relación con la formación crítica e investigativa de los estudiantes.",
-  "Valorar las implicaciones creativas derivadas de la revitalización del torbellino en la construcción de propuestas escénicas contemporáneas basadas en la tradición."
+  "Reconocer las características, variantes territoriales, estructuras y significados culturales del torbellino a partir de la revisión documental y el diálogo con maestros y conocedores de la tradición.",
+  "Explorar las posibilidades corporales y musicales del torbellino mediante procesos de investigación-creación.",
+  "Construir una propuesta escénica a partir de los hallazgos de la investigación, articulando elementos tradicionales con una dramaturgia contemporánea."
 ];
 
 export default function ObjetivosEspecificosPage() {
@@ -87,7 +87,6 @@ export default function ObjetivosEspecificosPage() {
                     <span className="bg-[#C5A059] text-[#1D2757] w-10 h-10 rounded-full flex items-center justify-center font-black shrink-0 shadow-lg text-sm transition-transform group-hover:scale-110">
                       {index + 1}
                     </span>
-                    {/* Quitada la negrita (font-bold), mantenemos el italic y tracking suave */}
                     <p className="text-[#1D2757] text-lg md:text-xl leading-snug italic tracking-tight group-hover:text-[#C5A059] transition-colors">
                       {obj}
                     </p>
@@ -114,8 +113,8 @@ export default function ObjetivosEspecificosPage() {
 
               <div className="absolute inset-0 bg-[#C5A059]/20 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center backdrop-blur-[2px]">
                  <motion.div 
-                  initial={{ scale: 0.8 }}
-                  className="bg-white px-6 py-2.5 rounded-full shadow-2xl"
+                 initial={{ scale: 0.8 }}
+                 className="bg-white px-6 py-2.5 rounded-full shadow-2xl"
                  >
                    <span className="text-[#1D2757] font-black text-[10px] uppercase tracking-widest">
                      Click para ampliar
