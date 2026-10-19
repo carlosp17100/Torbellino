@@ -1,66 +1,55 @@
-
 "use client";
 
-import dynamic from "next/dynamic";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Download, FileText, ExternalLink } from "lucide-react";
 
-const PdfViewer = dynamic(
-  () => import("../../components/PdfViewer"),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="h-[500px] flex items-center justify-center">
-        Cargando visor PDF...
-      </div>
-    ),
-  }
-);
-
 export default function DocumentoPage() {
   const router = useRouter();
-  const pdfPath = "/Proyecto%20de%20investigacion%20UMNG.pdf";
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
-    <main className="min-h-screen bg-[#F3F4F6] flex flex-col font-sans overflow-x-hidden">
-      <nav className="w-full p-4 md:p-6 flex justify-between items-center bg-white shadow-sm border-b sticky top-0 z-50">
-        <button
+    <main className="min-h-screen bg-[#F3F4F6] flex flex-col font-sans overflow-x-hidden relative">
+      
+      {/* NAVEGACIÓN INSTITUCIONAL */}
+      <nav className="w-full p-4 md:p-6 flex justify-between items-center z-50 bg-white shadow-sm border-b sticky top-0">
+        <div 
+          className="flex items-center gap-2 md:gap-4 cursor-pointer shrink-0" 
           onClick={() => router.push("/")}
-          className="flex items-center gap-2 md:gap-4"
         >
           <div className="relative w-8 h-8 md:w-12 md:h-12">
-            <Image
-              src="/umng-logo.png"
-              alt="UMNG"
-              fill
-              sizes="48px"
-              className="object-contain"
-              priority
-            />
+            <Image src="/umng-logo.png" alt="UMNG" fill className="object-contain" priority />
           </div>
-
-          <span className="text-[#1D2757] font-bold text-[9px] md:text-xs uppercase leading-tight border-l pl-2 md:pl-4 border-gray-200 text-left">
-            Universidad Militar
-            <br />
-            Nueva Granada
+          <span className="text-[#1D2757] font-bold text-[9px] md:text-xs tracking-tighter uppercase leading-tight border-l pl-2 md:pl-4 border-gray-200">
+            Universidad Militar <br /> Nueva Granada
           </span>
-        </button>
+        </div>
 
-        <h2 className="text-[#1D2757] font-black text-[10px] md:text-xl tracking-widest uppercase text-center px-2">
-          Documento
-          <span className="hidden sm:inline"> de Investigación</span>
+        <h2 className="text-[#1D2757] font-black text-[10px] md:text-xl tracking-[0.1em] md:tracking-[0.2em] uppercase text-center px-2">
+          Documento <span className="hidden sm:inline">de Investigación</span>
         </h2>
 
-        <button
+        <button 
           onClick={() => router.push("/topics")}
-          className="bg-[#1D2757] text-white px-3 md:px-6 py-2 rounded-md font-bold text-xs hover:bg-[#C5A059] transition-all flex items-center gap-2 uppercase"
+          className="bg-[#1D2757] text-white px-6 py-2 rounded-md font-bold text-xs hover:bg-[#C5A059] transition-all flex items-center gap-2 uppercase tracking-widest shadow-sm"
         >
-          <span>‹</span> Volver
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m15 18-6-6 6-6"/>
+          </svg>
+          Volver
         </button>
       </nav>
 
-      <div className="flex-1 flex flex-col items-center p-4 md:p-12 lg:p-20 max-w-5xl mx-auto w-full">
+      {/* CONTENIDO PRINCIPAL EXTRA ANCHO */}
+      <div className="flex-1 flex flex-col items-center p-4 md:p-8 lg:p-12 relative max-w-7xl mx-auto w-full">
+        
+        {/* TÍTULO CON EMOJI */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -68,12 +57,12 @@ export default function DocumentoPage() {
           className="text-center mb-6"
         >
           <span className="text-4xl mb-3 inline-block">📜</span>
-
-          <h1 className="text-3xl md:text-5xl font-serif font-bold text-[#1D2757] uppercase">
-            Documento de Investigación
+          <h1 className="text-3xl md:text-5xl font-serif font-bold text-[#1D2757] tracking-tight uppercase">
+            DOCUMENTO DE INVESTIGACIÓN
           </h1>
         </motion.div>
 
+        {/* LÍNEA DORADA */}
         <motion.div
           className="w-20 h-[3px] bg-[#C5A059] mb-6"
           initial={{ width: 0 }}
@@ -81,63 +70,84 @@ export default function DocumentoPage() {
           transition={{ delay: 0.3, duration: 0.8 }}
         />
 
-        <p className="text-xs md:text-sm text-gray-500 max-w-2xl text-center mb-8 uppercase tracking-widest leading-relaxed font-semibold">
+        {/* SUBTÍTULO / DESCRIPCIÓN */}
+        <motion.p
+          className="text-xs md:text-sm text-gray-500 max-w-2xl text-center mb-8 uppercase tracking-widest leading-relaxed font-semibold"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+        >
           Proyecto de Investigación UMNG • Universidad Militar Nueva Granada
-        </p>
+        </motion.p>
 
+        {/* BOTONES DE ACCIÓN */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
+          transition={{ delay: 0.6 }}
           className="flex flex-wrap justify-center gap-4 mb-8"
         >
           <a
-            href={pdfPath}
-            download="Proyecto-de-investigacion-UMNG.pdf"
-            className="inline-flex items-center gap-3 px-6 py-3 bg-[#1D2757] text-white rounded-xl text-xs tracking-widest uppercase font-bold hover:bg-[#C5A059] transition-all"
+            href="/proyecto-investigacion-umng.pdf.pdf"
+            download="Proyecto de investigacion UMNG.pdf"
+            className="inline-flex items-center gap-3 px-8 py-3 bg-[#1D2757] text-white rounded-xl text-xs tracking-[0.2em] uppercase font-bold hover:bg-[#C5A059] transition-all duration-300 shadow-sm"
           >
-            <Download className="w-4 h-4" />
-            Descargar PDF
+            <Download className="w-4 h-4" /> Descargar PDF
           </a>
 
           <a
-            href={pdfPath}
+            href="https://docs.google.com/document/d/1LWaMx29taYf0wvOLu2XUiC5GpwAgkXuj/edit"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-6 py-3 border-2 border-[#1D2757] text-[#1D2757] rounded-xl text-xs tracking-widest uppercase font-bold hover:bg-[#1D2757] hover:text-white transition-all"
+            className="inline-flex items-center gap-3 px-8 py-3 border-2 border-[#1D2757] text-[#1D2757] rounded-xl text-xs tracking-[0.2em] uppercase font-bold hover:bg-[#1D2757] hover:text-white transition-all duration-300 shadow-sm"
           >
-            <ExternalLink className="w-4 h-4" />
-            Abrir en pestaña nueva
+            <ExternalLink className="w-4 h-4" /> Abrir en Google Docs
           </a>
         </motion.div>
 
-        <motion.section
+        {/* VISOR GIGANTE CON ALTURA CLARA Y SIN CONFLICTOS */}
+        <motion.div
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.5, duration: 0.6 }}
-          className="w-full border border-gray-200 rounded-2xl md:rounded-[2rem] shadow-lg overflow-hidden bg-white"
+          transition={{ delay: 0.8, duration: 0.8 }}
+          className="w-full border border-gray-200 rounded-[2rem] shadow-2xl overflow-hidden bg-white flex flex-col"
+          style={{ height: "1200px" }}
         >
-          <div className="bg-[#1D2757] px-4 md:px-6 py-3 flex items-center justify-between text-white text-xs uppercase tracking-widest">
-            <span className="flex items-center gap-2">
-              <FileText className="w-4 h-4 text-[#C5A059]" />
-              Visualizador de documento
+          <div className="w-full bg-[#1D2757] px-6 py-4 flex items-center justify-between text-white text-xs tracking-widest uppercase shrink-0">
+            <span className="flex items-center gap-2 font-medium">
+              <FileText className="w-4 h-4 text-[#C5A059]" /> Visualizador de Documento Completo
             </span>
-            <span className="text-gray-300">PDF.js</span>
+            <span className="text-gray-300">Desplazamiento Vertical Extendido</span>
           </div>
 
-          <PdfViewer file={pdfPath} />
-        </motion.section>
+          {mounted ? (
+            <div className="w-full bg-white flex-1" style={{ height: "calc(1200px - 56px)" }}>
+              <iframe
+                src="https://docs.google.com/document/d/1LWaMx29taYf0wvOLu2XUiC5GpwAgkXuj/preview"
+                title="Proyecto de Investigación UMNG"
+                className="w-full h-full border-0 block"
+              />
+            </div>
+          ) : (
+            <div className="flex items-center justify-center p-20 text-[#1D2757] font-semibold text-sm bg-white flex-1">
+              Cargando documento...
+            </div>
+          )}
+        </motion.div>
+
       </div>
 
+      {/* FOOTER */}
       <footer className="w-full bg-[#1D2757] p-4 border-t border-[#C5A059]">
         <div className="max-w-7xl mx-auto flex items-center justify-center gap-6">
-          <div className="hidden md:block h-px flex-1 bg-gradient-to-r from-transparent to-[#C5A059]/50" />
+          <div className="hidden md:block h-[1px] flex-1 bg-gradient-to-r from-transparent to-[#C5A059]/50" />
           <p className="text-[#C5A059] text-[8px] md:text-[10px] font-bold tracking-[0.5em] uppercase text-center">
             • Proyecto UMNG •
           </p>
-          <div className="hidden md:block h-px flex-1 bg-gradient-to-l from-transparent to-[#C5A059]/50" />
+          <div className="hidden md:block h-[1px] flex-1 bg-gradient-to-l from-transparent to-[#C5A059]/50" />
         </div>
       </footer>
+
     </main>
   );
 }
