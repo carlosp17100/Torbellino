@@ -4,14 +4,20 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Download, FileText, ExternalLink, Eye } from "lucide-react";
+import { Download, FileText, ExternalLink, Eye, Smartphone } from "lucide-react";
 
 export default function DocumentoPage() {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    // Detectar si es dispositivo móvil para adaptar la vista del PDF
+    const checkMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    );
+    setIsMobile(checkMobile);
   }, []);
 
   const pdfPath = "/investigacion.pdf";
@@ -103,46 +109,60 @@ export default function DocumentoPage() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-3 px-8 py-3 bg-[#C5A059] text-white rounded-xl text-xs tracking-[0.2em] uppercase font-bold hover:bg-[#1D2757] transition-all duration-300 shadow-sm"
           >
-            <Eye className="w-4 h-4" /> Abrir en Pantalla Completa
+            <Eye className="w-4 h-4" /> Ver en Pantalla Completa
           </a>
         </motion.div>
 
-        {/* VISOR GIGANTE CON OBJETO NATIVO Y SOPORTE DE DESPLAZAMIENTO */}
+        {/* VISOR ADAPTATIVO (MÓVIL VS ESCRITORIO) */}
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.8, duration: 0.8 }}
           className="w-full border border-gray-200 rounded-[2rem] shadow-2xl overflow-hidden bg-white flex flex-col"
-          style={{ height: "1350px" }}
+          style={{ height: isMobile ? "600px" : "1350px" }}
         >
           <div className="w-full bg-[#1D2757] px-6 py-4 flex items-center justify-between text-white text-xs tracking-widest uppercase shrink-0">
             <span className="flex items-center gap-2 font-medium">
               <FileText className="w-4 h-4 text-[#C5A059]" /> investigacion.pdf
             </span>
-            <span className="text-gray-300">Desplazamiento Vertical Extendido</span>
+            <span className="text-gray-300">
+              {isMobile ? "Vista Móvil Optimizada" : "Desplazamiento Vertical Extendido"}
+            </span>
           </div>
 
           {mounted ? (
-            <div className="w-full bg-white flex-1 relative" style={{ height: "calc(1350px - 56px)" }}>
-              <object
-                data={`${pdfPath}#view=FitH`}
-                type="application/pdf"
-                className="w-full h-full border-0 block"
-              >
-                <div className="flex flex-col items-center justify-center h-full p-8 text-center bg-gray-50">
-                  <p className="text-[#1D2757] font-bold text-base mb-4">
-                    Tu navegador no soporta la previsualización directa de este PDF.
-                  </p>
+            <div className="w-full bg-white flex-1 relative" style={{ height: isMobile ? "calc(600px - 56px)" : "calc(1350px - 56px)" }}>
+              {isMobile ? (
+                // Panel especial amigable para celulares que no soportan objetos incrustados
+                <div className="flex flex-col items-center justify-center h-full p-8 text-center bg-gray-50 gap-6">
+                  <div className="w-16 h-16 bg-[#1D2757]/10 rounded-full flex items-center justify-center text-[#1D2757]">
+                    <Smartphone className="w-8 h-8" />
+                  </div>
+                  <div>
+                    <h3 className="text-[#1D2757] font-bold text-base mb-2 uppercase tracking-wide">
+                      Visualización en Dispositivo Móvil
+                    </h3>
+                    <p className="text-gray-500 text-xs max-w-xs mx-auto mb-6">
+                      Los navegadores móviles requieren abrir el documento directamente para una lectura fluida.
+                    </p>
+                  </div>
                   <a
                     href={pdfPath}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-6 py-3 bg-[#1D2757] text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-[#C5A059] transition-all"
+                    className="px-8 py-4 bg-[#1D2757] text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-[#C5A059] transition-all shadow-md flex items-center gap-2"
                   >
-                    Abrir documento en pestaña nueva
+                    <ExternalLink className="w-4 h-4" /> Abrir PDF en el Celular
                   </a>
                 </div>
-              </object>
+              ) : (
+                // Visor para PC
+                <iframe
+                  src={`${pdfPath}#view=FitH`}
+                  title="Investigación UMNG"
+                  className="w-full h-full border-0 block"
+                />
+              )}
             </div>
           ) : (
             <div className="flex items-center justify-center p-20 text-[#1D2757] font-semibold text-sm bg-white flex-1">
