@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Download, FileText, ExternalLink } from "lucide-react";
+import { Download, FileText, ExternalLink, Eye } from "lucide-react";
 
 export default function DocumentoPage() {
   const router = useRouter();
@@ -13,6 +13,8 @@ export default function DocumentoPage() {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const pdfPath = "/investigacion.pdf";
 
   return (
     <main className="min-h-screen bg-[#F3F4F6] flex flex-col font-sans overflow-x-hidden relative">
@@ -88,24 +90,24 @@ export default function DocumentoPage() {
           className="flex flex-wrap justify-center gap-4 mb-8"
         >
           <a
-            href="/proyecto-investigacion-umng.pdf.pdf"
-            download="Proyecto de investigacion UMNG.pdf"
+            href={pdfPath}
+            download="investigacion.pdf"
             className="inline-flex items-center gap-3 px-8 py-3 bg-[#1D2757] text-white rounded-xl text-xs tracking-[0.2em] uppercase font-bold hover:bg-[#C5A059] transition-all duration-300 shadow-sm"
           >
             <Download className="w-4 h-4" /> Descargar PDF
           </a>
 
           <a
-            href="https://docs.google.com/document/d/1LWaMx29taYf0wvOLu2XUiC5GpwAgkXuj/edit"
+            href={pdfPath}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-8 py-3 border-2 border-[#1D2757] text-[#1D2757] rounded-xl text-xs tracking-[0.2em] uppercase font-bold hover:bg-[#1D2757] hover:text-white transition-all duration-300 shadow-sm"
+            className="inline-flex items-center gap-3 px-8 py-3 bg-[#C5A059] text-white rounded-xl text-xs tracking-[0.2em] uppercase font-bold hover:bg-[#1D2757] transition-all duration-300 shadow-sm"
           >
-            <ExternalLink className="w-4 h-4" /> Abrir en Google Docs
+            <Eye className="w-4 h-4" /> Abrir en Pantalla Completa
           </a>
         </motion.div>
 
-        {/* VISOR GIGANTE SEGURO Y ESTABLE */}
+        {/* VISOR GIGANTE CON OBJETO NATIVO Y SOPORTE DE DESPLAZAMIENTO */}
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -115,18 +117,32 @@ export default function DocumentoPage() {
         >
           <div className="w-full bg-[#1D2757] px-6 py-4 flex items-center justify-between text-white text-xs tracking-widest uppercase shrink-0">
             <span className="flex items-center gap-2 font-medium">
-              <FileText className="w-4 h-4 text-[#C5A059]" /> Visualizador de Documento Completo
+              <FileText className="w-4 h-4 text-[#C5A059]" /> investigacion.pdf
             </span>
             <span className="text-gray-300">Desplazamiento Vertical Extendido</span>
           </div>
 
           {mounted ? (
-            <div className="w-full bg-white flex-1" style={{ height: "calc(1350px - 56px)" }}>
-              <iframe
-                src="https://docs.google.com/document/d/1LWaMx29taYf0wvOLu2XUiC5GpwAgkXuj/preview"
-                title="Proyecto de Investigación UMNG"
+            <div className="w-full bg-white flex-1 relative" style={{ height: "calc(1350px - 56px)" }}>
+              <object
+                data={`${pdfPath}#view=FitH`}
+                type="application/pdf"
                 className="w-full h-full border-0 block"
-              />
+              >
+                <div className="flex flex-col items-center justify-center h-full p-8 text-center bg-gray-50">
+                  <p className="text-[#1D2757] font-bold text-base mb-4">
+                    Tu navegador no soporta la previsualización directa de este PDF.
+                  </p>
+                  <a
+                    href={pdfPath}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-6 py-3 bg-[#1D2757] text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-[#C5A059] transition-all"
+                  >
+                    Abrir documento en pestaña nueva
+                  </a>
+                </div>
+              </object>
             </div>
           ) : (
             <div className="flex items-center justify-center p-20 text-[#1D2757] font-semibold text-sm bg-white flex-1">
