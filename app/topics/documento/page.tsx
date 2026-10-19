@@ -9,9 +9,15 @@ import { Download, FileText, ExternalLink, Eye, Smartphone, Monitor } from "luci
 export default function DocumentoPage() {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    // Detección precisa de dispositivos móviles para adaptar la experiencia de lectura
+    const checkMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent || navigator.vendor || (window as any).opera
+    );
+    setIsMobile(checkMobile);
   }, []);
 
   const pdfPath = "/investigacion.pdf";
@@ -103,32 +109,69 @@ export default function DocumentoPage() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-3 px-8 py-3 bg-[#C5A059] text-white rounded-xl text-xs tracking-[0.2em] uppercase font-bold hover:bg-[#1D2757] transition-all duration-300 shadow-sm"
           >
-            <Eye className="w-4 h-4" /> Pantalla Completa
+            <Eye className="w-4 h-4" /> Ver en Pantalla Completa
           </a>
         </motion.div>
 
-        {/* VISOR UNIVERSAL ADAPTATIVO PARA MÓVIL Y ESCRITORIO */}
+        {/* VISOR ADAPTATIVO INTELIGENTE (MÓVIL VS ESCRITORIO) */}
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.8, duration: 0.8 }}
-          className="w-full border border-gray-200 rounded-[2rem] shadow-2xl overflow-hidden bg-white flex flex-col h-[750px] md:h-[1350px]"
+          className="w-full border border-gray-200 rounded-[2rem] shadow-2xl overflow-hidden bg-white flex flex-col"
+          style={{ height: isMobile ? "650px" : "1350px" }}
         >
           <div className="w-full bg-[#1D2757] px-6 py-4 flex items-center justify-between text-white text-xs tracking-widest uppercase shrink-0">
             <span className="flex items-center gap-2 font-medium">
               <FileText className="w-4 h-4 text-[#C5A059]" /> investigacion.pdf
             </span>
-            <span className="text-gray-300 hidden sm:inline">Visualizador Web Responsivo</span>
+            <span className="text-gray-300">
+              {isMobile ? "Modo Lectura Móvil" : "Desplazamiento Vertical Extendido"}
+            </span>
           </div>
 
           {mounted ? (
-            <div className="w-full bg-white flex-1 relative h-full">
-              {/* Usamos Google Docs Viewer embebido adaptado a URL pública o iframe directo con respaldo de visor en línea para moviles y pc */}
-              <iframe
-                src={`https://docs.google.com/gview?url=${encodeURIComponent(window.location.origin + pdfPath)}&embedded=true`}
-                title="Investigación UMNG"
-                className="w-full h-full border-0 block"
-              />
+            <div className="w-full bg-white flex-1 relative" style={{ height: isMobile ? "calc(650px - 56px)" : "calc(1350px - 56px)" }}>
+              {isMobile ? (
+                // Panel optimizado para móviles con acceso directo instantáneo y visor táctil
+                <div className="flex flex-col items-center justify-center h-full p-6 text-center bg-gradient-to-b from-gray-50 to-white gap-6">
+                  <div className="w-20 h-20 bg-[#1D2757]/10 rounded-full flex items-center justify-center text-[#1D2757] shadow-inner">
+                    <Smartphone className="w-10 h-10" />
+                  </div>
+                  <div>
+                    <h3 className="text-[#1D2757] font-bold text-lg mb-2 uppercase tracking-wide">
+                      Documento de Investigación UMNG
+                    </h3>
+                    <p className="text-gray-500 text-xs max-w-sm mx-auto mb-4 leading-relaxed">
+                      Para garantizar una lectura fluida, nítida y sin recortes en tu celular, abre el visor interactivo oficial.
+                    </p>
+                  </div>
+                  <div className="flex flex-col w-full max-w-xs gap-3">
+                    <a
+                      href={pdfPath}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full py-4 bg-[#1D2757] text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-[#C5A059] transition-all shadow-lg flex items-center justify-center gap-2"
+                    >
+                      <ExternalLink className="w-4 h-4" /> Abrir Visor en Móvil
+                    </a>
+                    <a
+                      href={pdfPath}
+                      download="investigacion.pdf"
+                      className="w-full py-3 bg-gray-100 text-[#1D2757] rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-gray-200 transition-all flex items-center justify-center gap-2 border border-gray-200"
+                    >
+                      <Download className="w-4 h-4" /> Descargar Archivo
+                    </a>
+                  </div>
+                </div>
+              ) : (
+                // Visor optimizado para Computadora / Desktop
+                <iframe
+                  src={`${pdfPath}#view=FitH`}
+                  title="Investigación UMNG"
+                  className="w-full h-full border-0 block"
+                />
+              )}
             </div>
           ) : (
             <div className="flex items-center justify-center p-20 text-[#1D2757] font-semibold text-sm bg-white flex-1">
