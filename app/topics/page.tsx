@@ -27,19 +27,20 @@ const TOPICS: Topic[] = [
   { id: "pregunta", label: "Pregunta Problema", emoji: "❓", x: 50, y: 14 }, // Índice 6
   { id: "metodologia", label: "Diseño Metodológico", emoji: "🔬", x: 50, y: 52, isCenter: true }, // Índice 7
 
-  // --- LADO DERECHO (5 temas restantes) ---
+  // --- LADO DERECHO (Temas actualizados) ---
   { id: "obj-general", label: "Objetivo General", emoji: "🎯", x: 80, y: 25 }, // Índice 8
-  { id: "escena", label: "Puesta en Escena", emoji: "🎭", x: 82, y: 70 }, // Índice 9
-  { id: "melodia", label: "Melodía y Danza", emoji: "🎵", x: 62, y: 90 }, // Índice 10
-  { id: "multimedia", label: "Multimedia", emoji: "🎬", x: 94, y: 75 }, // Índice 11
-  { id: "bibliografia", label: "Bibliografía", emoji: "📚", x: 84, y: 94 }, // Índice 12
+  { id: "documento", label: "Documento de Investigación", emoji: "📜", x: 92, y: 48 }, // Índice 9 (Nuevo nodo en el recuadro rojo)
+  { id: "escena", label: "Puesta en Escena", emoji: "🎭", x: 82, y: 70 }, // Índice 10
+  { id: "melodia", label: "Melodía y Danza", emoji: "🎵", x: 62, y: 90 }, // Índice 11
+  { id: "multimedia", label: "Multimedia", emoji: "🎬", x: 94, y: 75 }, // Índice 12
+  { id: "bibliografia", label: "Bibliografía", emoji: "📚", x: 84, y: 94 }, // Índice 13
 ];
 
 const CONNECTIONS: [number, number][] = [
   // Conexiones desde el nodo central (Metodología - Índice 7 hacia el resto)
-  [7, 0], [7, 1], [7, 2], [7, 5], [7, 6], [7, 8], [7, 9], [7, 10], [7, 11], [7, 12],
-  // Conexiones periféricas actualizadas sin los nodos eliminados
-  [0, 6], [6, 8], [1, 0], [5, 8], [2, 1], [3, 4], [4, 5], [10, 9], [12, 11], [9, 11]
+  [7, 0], [7, 1], [7, 2], [7, 5], [7, 6], [7, 8], [7, 9], [7, 10], [7, 11], [7, 12], [7, 13],
+  // Conexiones periféricas actualizadas incluyendo el nuevo nodo de documento (Índice 9)
+  [0, 6], [6, 8], [1, 0], [5, 8], [2, 1], [3, 4], [4, 5], [11, 10], [13, 12], [10, 12], [8, 9], [9, 12]
 ];
 
 export default function TopicsPage() {
