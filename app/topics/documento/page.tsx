@@ -105,13 +105,13 @@ export default function DocumentoPage() {
           </a>
         </motion.div>
 
-        {/* VISOR GIGANTE CON ALTURA CLARA Y SIN CONFLICTOS */}
+        {/* VISOR GIGANTE SEGURO Y ESTABLE */}
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.8, duration: 0.8 }}
           className="w-full border border-gray-200 rounded-[2rem] shadow-2xl overflow-hidden bg-white flex flex-col"
-          style={{ height: "1200px" }}
+          style={{ height: "1350px" }}
         >
           <div className="w-full bg-[#1D2757] px-6 py-4 flex items-center justify-between text-white text-xs tracking-widest uppercase shrink-0">
             <span className="flex items-center gap-2 font-medium">
@@ -121,7 +121,7 @@ export default function DocumentoPage() {
           </div>
 
           {mounted ? (
-            <div className="w-full bg-white flex-1" style={{ height: "calc(1200px - 56px)" }}>
+            <div className="w-full bg-white flex-1" style={{ height: "calc(1350px - 56px)" }}>
               <iframe
                 src="https://docs.google.com/document/d/1LWaMx29taYf0wvOLu2XUiC5GpwAgkXuj/preview"
                 title="Proyecto de Investigación UMNG"
